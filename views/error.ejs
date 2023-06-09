@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Labeling - Error</title>
+        <%- include('./partials/head/meta'); %>
+        <%- include('./partials/head/link'); %>
+    </head>
+    <body class="vh-100 mw-100 d-flex flex-column justify-content-between">
+        <%- include('./partials/header'); %>
+        <main>
+            <h1 class="text-center mb-3">
+                <% if (locals.icon) { %>
+                    <i class="bi <%= locals.icon %>"></i>
+                <% } else { %>
+                    <i class="bi bi-bug-fill"></i>
+                <% } %>
+                <% if (locals.title) { %>
+                    <%= locals.title %>
+                <% } else { %>
+                    An Unexpected Error Has Occurred!
+                <% } %>
+            </h1>
+            <%- include('./partials/home-button'); %>
+        </main>
+        <%- include('./partials/footer'); %>
+        <%- include('./partials/scripts/general'); %>
+    </body>
+</html>

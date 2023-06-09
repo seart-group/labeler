@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Labeling - Export</title>
+        <%- include('./partials/head/meta'); %>
+        <%- include('./partials/head/link'); %>
+    </head>
+    <body class="vh-100 mw-100 d-flex flex-column justify-content-between">
+        <%- include('./partials/header'); %>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="text-center mb-3">
+                            Export:
+                        </h1>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="list-group mb-3">
+                            <a id="export-review"
+                               href="/export/review"
+                               target="_blank"
+                               class="list-group-item list-group-item-dark list-group-item-action font-monospace"
+                            >
+                                Reviewed Instances
+                            </a>
+                            <a id="export-discard"
+                               href="/export/discard"
+                               target="_blank"
+                               class="list-group-item list-group-item-dark list-group-item-action font-monospace"
+                            >
+                                Discarded Instances
+                            </a>
+                            <a id="export-conflict"
+                               href="/export/conflict"
+                               target="_blank"
+                               class="list-group-item list-group-item-dark list-group-item-action font-monospace"
+                            >
+                                Resolved Conflicts
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%- include('./partials/footer'); %>
+        <%- include('./partials/scripts/general'); %>
+    </body>
+</html>

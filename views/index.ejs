@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Labeling</title>
+        <%- include('./partials/head/meta'); %>
+        <%- include('./partials/head/link'); %>
+    </head>
+    <body class="vh-100 mw-100 d-flex flex-column justify-content-between">
+        <header></header>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="my-3 text-center text-nowrap">
+                            <span class="display-1 text-light bg-dark ps-4 pe-2">LA</span><span class="display-1 text-dark">BELER</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center g-4">
+                    <div class="col">
+                        <div class="card">
+                            <a href="/login" class="fs-4 card-link link-secondary text-decoration-none">
+                                <%- include('./partials/placeholder', { class: "card-img", text: "Login", title: "Login" }); %>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <a href="/instances" class="fs-4 card-link link-secondary text-decoration-none">
+                                <%- include('./partials/placeholder', { class: "card-img", text: "Instances", title: "Instances" }); %>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <a href="/conflicts" class="fs-4 card-link link-secondary text-decoration-none">
+                                <%- include('./partials/placeholder', { class: "card-img", text: "Conflicts", title: "Conflicts" }); %>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <a href="/labels" class="fs-4 card-link link-secondary text-decoration-none">
+                                <%- include('./partials/placeholder', { class: "card-img", text: "Labels", title: "Labels" }); %>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <a href="/progress" class="fs-4 card-link link-secondary text-decoration-none">
+                                <%- include('./partials/placeholder', { class: "card-img", text: "Progress", title: "Progress" }); %>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <a href="/export" class="fs-4 card-link link-secondary text-decoration-none">
+                                <%- include('./partials/placeholder', { class: "card-img", text: "Export", title: "Export" }); %>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%- include('./partials/footer'); %>
+        <%- include('./partials/scripts/general'); %>
+    </body>
+</html>

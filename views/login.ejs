@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Labeling - Login</title>
+        <%- include('./partials/head/meta'); %>
+        <%- include('./partials/head/link'); %>
+    </head>
+    <body class="vh-100 mw-100 d-flex flex-column justify-content-between">
+        <%- include('./partials/header'); %>
+        <main>
+            <h1 class="text-center mb-3">Login</h1>
+            <div class="d-flex justify-content-center">
+                <form id="login-form"
+                      action="/login"
+                      method="post"
+                      autocomplete="on"
+                      class="row row-cols-lg-auto g-3 align-items-center"
+                >
+                    <div class="col-12">
+                        <label class="visually-hidden" for="reviewer-name">Reviewer</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <select name="id"
+                                    class="form-select"
+                                    aria-label="Select Reviewer"
+                                    autofocus
+                                    required
+                            >
+                                <option value="" disabled selected>Select Reviewer...</option>
+                                <% for (let idx = 0; idx < reviewers.length; idx++) { %>
+                                    <% const reviewer = reviewers[idx]; %>
+                                    <option value="<%- reviewer.id %>">
+                                        <%- reviewer.name %>
+                                    </option>
+                                <% } %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-grid d-lg-block">
+                            <button type="submit" class="btn btn-dark">Start!</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <%- include('./partials/footer'); %>
+        <%- include('./partials/scripts/general'); %>
+    </body>
+</html>

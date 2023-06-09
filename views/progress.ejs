@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Labeling - Progress</title>
+        <%- include('./partials/head/meta'); %>
+        <%- include('./partials/head/link'); %>
+    </head>
+    <body class="vh-100 mw-100 d-flex flex-column justify-content-between">
+        <%- include('./partials/header'); %>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="text-center mb-3">
+                            Progress:
+                        </h1>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-8 col-12">
+                        <table id="review-progress" class="table table-light table-striped table-bordered caption-top">
+                            <caption>
+                                <div class="d-flex justify-content-between">
+                                    <span>Review Progress</span>
+                                    <a href="#" data-target="review-progress" class="link-secondary">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </div>
+                            </caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Reviewer</th>
+                                    <th class="text-end" scope="col">Reviews Completed</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <% reviewers.forEach((reviewer) => { %>
+                                    <tr>
+                                        <th scope="row"><%- reviewer.name %></th>
+                                        <td class="text-end"><%- reviewer.progress %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                            <tfoot class="table-group-divider">
+                                <%
+                                    const total = reviewers.map((reviewer) => reviewer.progress)
+                                            .reduce((acc, curr) => acc + curr, 0);
+                                %>
+                                <tr>
+                                    <th scope="row">Total</th>
+                                    <td class="text-end"><%- total %></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-8 col-12">
+                        <table id="bucket-progress" class="table table-light table-striped table-bordered caption-top">
+                            <caption>
+                                <div class="d-flex justify-content-between">
+                                    <span>Bucket Progress</span>
+                                    <a href="#" data-target="bucket-progress" class="link-secondary">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </div>
+                            </caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Category</th>
+                                    <th class="text-end" scope="col">Count</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <% buckets.forEach((bucket) => { %>
+                                    <tr>
+                                        <th scope="row">
+                                            <span class="font-monospace">
+                                                <%- bucket.category %>
+                                            </span>
+                                        </th>
+                                        <td class="text-end"><%- bucket.count %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%- include('./partials/footer'); %>
+        <%- include('./partials/scripts/general'); %>
+        <%- include('./partials/scripts/table-download'); %>
+        <script>
+            document.querySelectorAll("table caption a").forEach((node) => {
+                node.addEventListener("click", () => {
+                    downloadTableAsCSV(node.dataset.target);
+                });
+            });
+        </script>
+    </body>
+</html>

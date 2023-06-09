@@ -1,0 +1,15 @@
+-- TODO: Generate the database and user creation commands for local development:
+-- DATABASE_NAME=labeling \
+-- DATABASE_USER=labeling_admin \
+-- DATABASE_PASS=Ex4mP1eP4ss \
+-- envsubst < 00_init.sql.template > 00_init.sql \
+--   && sed '/^--/d' 00_init.sql | sponge 00_init.sql
+CREATE ROLE $DATABASE_USER WITH
+ENCRYPTED PASSWORD '$DATABASE_PASS'
+LOGIN INHERIT CREATEDB NOSUPERUSER NOCREATEROLE NOREPLICATION
+CONNECTION LIMIT -1;
+
+CREATE DATABASE $DATABASE_NAME WITH
+OWNER = $DATABASE_USER
+ENCODING = 'UTF8'
+CONNECTION LIMIT = -1;

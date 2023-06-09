@@ -1,0 +1,98 @@
+version: "3.9"
+name: "labeling"
+
+services:
+
+  labeling-database:
+    container_name: labeling-database
+    hostname: labeling-database
+    image: labeling/database:latest
+    build:
+      context: ../
+      dockerfile: deployment/database/Dockerfile
+    volumes:
+      - data:/var/lib/postgresql/data
+      - ../schema/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ../schema/02_views.sql:/docker-entrypoint-initdb.d/02_views.sql
+      - ../schema/03_functions.sql:/docker-entrypoint-initdb.d/03_functions.sql
+      - ../schema/04_procedures.sql:/docker-entrypoint-initdb.d/04_procedures.sql
+      - ./data/label.txt:/docker-entrypoint-initdb.d/label.txt
+      - ./data/reviewer.txt:/docker-entrypoint-initdb.d/reviewer.txt
+      - ./data/init-data.sh:/docker-entrypoint-initdb.d/~init_data.sh
+    networks: [ default ]
+    environment:
+      TZ: UTC
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASS}
+    restart: always
+    healthcheck:
+      test: pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}
+      start_period: 60s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  labeling-backup:
+    # TODO: Backup service is disabled by default.
+    #       To re-enable it, you have to define a `docker-compose.override.yml`,
+    #       such that it contains the `labeling-backup` service definition,
+    #       with `restart` set to `always`, and `entrypoint` to `/init`.
+    #       Don't forget to specify the override file when deploying!
+    container_name: labeling-backup
+    hostname: labeling-backup
+    image: tiredofit/db-backup:latest
+    volumes:
+      - /tmp/labeling/backup:/backup
+    networks: [ default ]
+    links: [ labeling-database ]
+    environment:
+      DB_TYPE: pgsql
+      DB_HOST: labeling-database
+      DB_NAME: ${DATABASE_NAME}
+      DB_USER: ${DATABASE_USER}
+      DB_PASS: ${DATABASE_PASS}
+      DB_DUMP_FREQ: "1440"
+      DB_DUMP_BEGIN: "0000"
+      SPLIT_DB: FALSE
+      CHECKSUM: SHA1
+      COMPRESSION: GZ
+      EXTRA_OPTS: --data-only
+      CONTAINER_ENABLE_MONITORING: FALSE
+    depends_on:
+      labeling-database:
+        condition: service_healthy
+    restart: no
+    entrypoint: "true"
+
+  labeling-server:
+    container_name: labeling-server
+    hostname: labeling-server
+    image: labeling/server:latest
+    build:
+      context: ../
+      dockerfile: deployment/server/Dockerfile
+    networks: [ default ]
+    environment:
+      DATABASE_HOST: labeling-database
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASS: ${DATABASE_PASS}
+    depends_on:
+      labeling-database:
+        condition: service_healthy
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    ports:
+      - "7755:3000"
+
+volumes:
+  data:
+    name: labeling-data
+
+networks:
+  default:
+    name: labeling-network

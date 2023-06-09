@@ -1,0 +1,16 @@
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js" integrity="sha384-4l+9bhb7rakZ18megzl0/DWczL8ojbDl1jIEzBVffeMho9A6xB/lkqt1K0PC8Jin" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/languages/java.min.js" integrity="sha384-ppS3kmYuIwUHk7ZpUIgfhshP0bdLTCuGZfTXAsF8MNaTCsTGSj7IKqFGm9ERyTMd" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js" integrity="sha384-+ch8x/dgaV//v6Sa8m4v5+7KScnpCuxHqilN8njQ013CEKg3Fbd8Q3oN9tfpouLh" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("pre code").forEach((element) => {
+            hljs.highlightElement(element);
+            element.innerHTML = element.innerHTML
+                .replaceAll(/&lt;START&gt;/gm,"<mark>")
+                .replaceAll(/&lt;END&gt;/gm,"</mark>");
+            if (!element.classList.contains("language-plaintext")) {
+                hljs.lineNumbersBlock(element, { singleLine: true });
+            }
+        });
+    });
+</script>

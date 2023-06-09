@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Code Review Labeling - Queue</title>
+        <%- include('./partials/head/meta'); %>
+        <%- include('./partials/head/link'); %>
+    </head>
+    <body class="vh-100 mw-100 d-flex flex-column justify-content-between">
+        <%- include('./partials/header', { reviewer: reviewer }); %>
+        <main>
+            <div class="container">
+                <% if (!!reviewer && !!instance) { %>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <h1 class="font-monospace mb-3">
+                                <%- instance.category %>
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col overflow-hidden">
+                            <%- include('./partials/instance/data', { data: instance.data }); %>
+                        </div>
+                    </div>
+                    <div class="row gap-2 gap-md-0">
+                        <div class="col-12 col-md-6 d-grid d-md-block text-md-end">
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#label-offcanvas"
+                                    aria-controls="label-offcanvas"
+                                    autofocus
+                            >
+                                Label
+                            </button>
+                        </div>
+                        <div class="col-12 col-md-6 d-grid d-md-block text-md-start">
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#discard-offcanvas"
+                                    aria-controls="discard-offcanvas"
+                            >
+                                Discard
+                            </button>
+                        </div>
+                    </div>
+                    <div id="label-offcanvas"
+                         class="offcanvas offcanvas-start"
+                         aria-labelledby="label-offcanvas-title"
+                         tabindex="-1"
+                    >
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="label-offcanvas-title">Assign Labels</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <form id="label-add" class="mb-2">
+                                <div class="input-group">
+                                    <input type="text"
+                                           id="label-add-input"
+                                           class="form-control"
+                                           placeholder="Define a new label..."
+                                           aria-describedby="label-add-button"
+                                           aria-label="New Label"
+                                           required
+                                    />
+                                    <button type="submit" id="label-add-button" class="btn btn-dark">
+                                        Add!
+                                    </button>
+                                </div>
+                            </form>
+                            <input type="text"
+                                   id="label-filter"
+                                   class="form-control mb-2"
+                                   placeholder="Filter existing labels..."
+                                   aria-label="Filter Labels"
+                            />
+                            <form id="label-instance">
+                                <select id="label-instance-select"
+                                        class="form-select mb-2"
+                                        aria-label="Assign Labels"
+                                        size="10"
+                                        multiple
+                                        required
+                                >
+                                    <% labels.forEach(label => { %>
+                                        <option value="<%- label.id %>"><%- label.name %></option>
+                                    <% }) %>
+                                </select>
+                                <%
+                                    switch (locals.os) {
+                                    case "Mac OS X":
+                                %>
+                                    <p class="text-center text-muted user-select-none border rounded mb-2">
+                                        Hold <i class="bi bi-command"></i> to select multiple labels
+                                    </p>
+                                <%
+                                    break;
+                                    case "Windows":
+                                %>
+                                    <p class="text-center text-muted user-select-none border rounded mb-2">
+                                        Hold Ctrl to select multiple labels
+                                    </p>
+                                <%
+                                    break;
+                                    default:
+                                    break;
+                                    }
+                                %>
+                                <div class="form-check mb-2">
+                                    <input id="label-instance-interesting"
+                                           class="form-check-input"
+                                           type="checkbox"
+                                           value=""
+                                    />
+                                    <label for="label-instance-interesting" class="form-check-label">
+                                        This instance is interesting
+                                    </label>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label for="label-instance-remarks">Remarks</label>
+                                    <textarea id="label-instance-remarks"
+                                              class="form-control"
+                                              style="resize: none"
+                                              rows="10"
+                                    ></textarea>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        Label Instance!
+                                    </button>
+                                </div>
+                            </form>
+                            <%-
+                                include(
+                                    './partials/toast',
+                                    {
+                                        id: "label-add-toast",
+                                        body: "Label already exists!",
+                                        variant: "danger"
+                                    }
+                                )
+                            %>
+                        </div>
+                    </div>
+                    <div id="discard-offcanvas"
+                         class="offcanvas offcanvas-end"
+                         aria-labelledby="discard-offcanvas-title"
+                    >
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="discard-offcanvas-title">Provide Additional Information</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <form id="discard-instance">
+                                <div class="form-group mb-2">
+                                    <!--
+                                        <div class="form-check">
+                                            <input type="radio"
+                                                   id="discard-option-x"
+                                                   class="form-check-input"
+                                                   name="discard-option"
+                                                   value="1"
+                                                   required
+                                            />
+                                            <label id="discard-option-x-value"
+                                                   class="form-check-label"
+                                                   for="discard-option-x"
+                                            >
+                                                Discard reasoning goes here
+                                            </label>
+                                        </div>
+                                    -->
+                                    <div class="form-check">
+                                        <input type="radio"
+                                               id="discard-option-other"
+                                               class="form-check-input"
+                                               name="discard-option"
+                                               value="other"
+                                               required
+                                        />
+                                        <label class="form-check-label" for="discard-option-other">
+                                            Other:
+                                        </label>
+                                        <input type="text"
+                                               id="discard-option-other-value"
+                                               class="form-control"
+                                               aria-label="Other Reason Input"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-danger btn-lg">
+                                        Discard Instance!
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <%-
+                        include(
+                            './partials/toast',
+                            {
+                                id: "socket-disconnect-toast",
+                                body: "Server connection lost!",
+                                variant: "danger"
+                            }
+                        )
+                    %>
+                    <%-
+                        include(
+                            './partials/toast',
+                            {
+                                id: "socket-reconnect-toast",
+                                body: "Server connection restored!",
+                                variant: "success"
+                            }
+                        )
+                    %>
+                <% } else if (!!reviewer && !instance) { %>
+                    <h1 class="text-center mb-3">
+                        <i class="bi bi-emoji-smile-fill"></i>
+                        Review Queue Cleared!
+                    </h1>
+                <% } else { %>
+                    <h1 class="text-center mb-3">
+                        <i class="bi bi-emoji-dizzy-fill"></i>
+                        You Must Log In First!
+                    </h1>
+                    <%- include('./partials/home-button'); %>
+                <% } %>
+            </div>
+        </main>
+        <%- include('./partials/footer'); %>
+        <%- include('./partials/scripts/general'); %>
+        <%- include('./partials/scripts/hljs'); %>
+        <% if (!!reviewer && !!instance) { %>
+            <script src="/socket.io/socket.io.js"></script>
+            <script>
+                const socket = io();
+                const reviewer_id = Number(`<%- reviewer.id %>`);
+                const instance_id = Number(`<%- instance.id %>`);
+                const labelFilter = document.getElementById("label-filter");
+                const labelAddForm = document.getElementById("label-add");
+                const labelAddInput = document.getElementById("label-add-input");
+                const labelAddToast = document.getElementById("label-add-toast");
+                const labelInstance = document.getElementById("label-instance");
+                const labelInstanceSelect = document.getElementById("label-instance-select");
+                const labelInstanceInteresting = document.getElementById("label-instance-interesting");
+                const labelInstanceRemarks = document.getElementById("label-instance-remarks");
+                const discardInstance = document.getElementById("discard-instance");
+                const discardOptions = document.getElementsByName("discard-option");
+                const discardOptionOther = document.getElementById("discard-option-other");
+                const discardOptionOtherValue = document.getElementById("discard-option-other-value");
+                const socketDisconnectToast = document.getElementById("socket-disconnect-toast");
+                const socketReconnectToast = document.getElementById("socket-reconnect-toast");
+
+                const refresh = () => history.go();
+                const toast = (element) => new bootstrap.Toast(element).show();
+
+                const normalize = (name) => {
+                    return name.replaceAll(/\s+/g, " ").toLowerCase().trim();
+                };
+
+                const addOption = (label) => {
+                    const search = normalize(labelFilter.value);
+                    const created_option = new Option(label.name, label.id);
+                    const created_option_classes = created_option.classList;
+                    if (!label.name.includes(search)) {
+                        created_option_classes.add("d-none");
+                    }
+                    const existing_options = labelInstanceSelect.options;
+                    for (let idx = 0; idx < existing_options.length; idx++) {
+                        const current_option = existing_options.item(idx);
+                        if (created_option.innerHTML < current_option.innerHTML) {
+                            labelInstanceSelect.insertBefore(created_option, current_option);
+                            break;
+                        } else if (idx === existing_options.length - 1) {
+                            labelInstanceSelect.appendChild(created_option);
+                        }
+                    }
+                };
+
+                const removeOption = (label) => {
+                    const selector = `option[value='${label.id}']`;
+                    const target = labelInstanceSelect.querySelector(selector);
+                    target.remove();
+                };
+
+                labelFilter.addEventListener("input", () => {
+                    const search = normalize(labelFilter.value);
+                    const existing_options = labelInstanceSelect.options;
+                    for (let idx = 0; idx < existing_options.length; idx++) {
+                        const current_option = existing_options.item(idx);
+                        const current_option_classes = current_option.classList;
+                        const label = current_option.innerHTML;
+                        if (label.includes(search)) {
+                            current_option_classes.remove("d-none");
+                        } else {
+                            current_option_classes.add("d-none");
+                        }
+                    }
+                });
+
+                labelAddForm.addEventListener("submit", (event) => {
+                    event.preventDefault();
+                    const name = normalize(labelAddInput.value);
+                    labelAddInput.value = null;
+                    axios.post("/labels", { name: name })
+                        .then(({ data: label }) => {
+                            addOption(label);
+                            socket.emit("label_added", label);
+                        })
+                        .catch(() => toast(labelAddToast));
+                });
+
+                labelInstance.addEventListener("submit", (event) => {
+                    event.preventDefault();
+                    const selected = [ ...labelInstanceSelect.selectedOptions ].map(({ value }) => Number(value));
+                    const payload = {
+                        reviewer_id: reviewer_id,
+                        is_interesting: labelInstanceInteresting.checked,
+                        remarks: labelInstanceRemarks.value || null,
+                        label_ids: selected
+                    };
+                    axios.post(`/instances/${instance_id}/review`, payload).then(refresh);
+                });
+
+                discardOptionOther.addEventListener("change", () => {
+                    discardOptionOtherValue.required = true;
+                    discardOptionOtherValue.setAttribute("pattern", ".*\\S+.*");
+                });
+
+                [ ...discardOptions ].slice(0, -1).forEach((option) => {
+                    option.addEventListener("change", () => {
+                        discardOptionOtherValue.required = false;
+                        discardOptionOtherValue.removeAttribute("pattern");
+                    });
+                });
+
+                discardInstance.addEventListener("submit", (event) => {
+                    event.preventDefault();
+                    const [ selectedOption ] = [ ...discardOptions ].filter(option => option.checked)
+                                                                    .map(option => option.value);
+                    const target = document.getElementById(`discard-option-${selectedOption}-value`);
+                    const remarks = normalize((selectedOption === "other") ? target.value : target.innerHTML);
+                    const payload = {
+                        reviewer_id: reviewer_id,
+                        remarks: remarks || null
+                    };
+                    axios.post(`/instances/${instance_id}/discard`, payload).then(refresh);
+                });
+
+                socket.on("label_append", (label) => addOption(label));
+                socket.on("label_detach", (label) => removeOption(label));
+                socket.on("label_replace", ({ id, old_name, new_name }) => {
+                    removeOption({ id: id, name: old_name });
+                    addOption({ id: id, name: new_name });
+                });
+                socket.on("disconnect", () => toast(socketDisconnectToast));
+                socket.io.on("reconnect", () => toast(socketReconnectToast));
+            </script>
+        <% } %>
+    </body>
+</html>

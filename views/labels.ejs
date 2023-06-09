@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Labeling - Labels</title>
+        <%- include('./partials/head/meta'); %>
+        <%- include('./partials/head/link'); %>
+    </head>
+    <body class="vh-100 mw-100 d-flex flex-column justify-content-between">
+        <%- include('./partials/header'); %>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="text-center mb-3">
+                            Labels: <%- pagination.items %>
+                        </h1>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="list-group mb-3">
+                            <%
+                                labels.forEach((label) => {
+                                    const id = label.id;
+                                    const name = label.name;
+                            %>
+                                <a id="label-<%- id %>"
+                                   href="/labels/<%- id %>"
+                                   class="list-group-item list-group-item-dark list-group-item-action font-monospace text-truncate"
+                                >
+                                    <%= name %>
+                                </a>
+                            <%
+                                });
+                            %>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <nav aria-label="Page navigation" class="d-flex flex-wrap justify-content-center">
+                            <ul id="labels-pagination" class="pagination mb-3 mb-lg-0 me-md-2"></ul>
+                            <form id="labels-pagination-jump" class="input-group w-auto mb-3 mb-lg-0 me-2">
+                                <input type="number"
+                                       id="labels-pagination-jump-input"
+                                       aria-describedby="labels-pagination-jump-button"
+                                       aria-label="Page number"
+                                       placeholder="Jump to page..."
+                                       class="form-control"
+                                       min="0"
+                                />
+                                <button type="submit"
+                                        id="labels-pagination-jump-button"
+                                        class="btn btn-dark"
+                                >
+                                    Go!
+                                </button>
+                            </form>
+                            <select id="labels-sort-select"
+                                    class="form-select w-auto mb-3 mb-md-0"
+                                    aria-label="Label Sort Order By Name"
+                            >
+                                <option <%- (locals.pagination.name > 0) ? "selected" : "" %> value="1">Ascending</option>
+                                <option <%- (locals.pagination.name < 0) ? "selected" : "" %> value="-1">Descending</option>
+                            </select>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%- include('./partials/footer'); %>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js" integrity="sha384-NXgwF8Kv9SSAr+jemKKcbvQsz+teULH/a5UNJvZc6kP47hZgl62M1vGnw6gHQhb1" crossorigin="anonymous"></script>
+        <%- include('./partials/scripts/general'); %>
+        <script src="https://cdn.jsdelivr.net/npm/twbs-pagination@1.4.2/jquery.twbsPagination.min.js" integrity="sha384-AzpIEA+V2ntWh1KXh0Nz69l/mYOfBMOiw6lbuvWaVKYfuEooT5t5k/qyU0W0B7uk" crossorigin="anonymous"></script>
+        <script>
+            window.addEventListener("load", () => {
+                const params = new URLSearchParams(location.search);
+                let reload = false;
+                if (!params.has("page")) {
+                    params.append("page", "1");
+                    reload = true;
+                }
+                if (!params.has("limit")) {
+                    params.append("limit", "10");
+                    reload = true;
+                }
+                if (!params.has("name")) {
+                    params.append("name", "1");
+                    reload = true;
+                }
+                if (reload) {
+                    location.search = params.toString();
+                }
+            });
+
+            document.getElementById("labels-pagination-jump-input")
+                .addEventListener("input", (event) => {
+                    const min = Number(event.target.min);
+                    const value = Number(event.target.value);
+                    const abs = Math.abs(value);
+                    event.target.value = !!value && abs >= min ? abs : null;
+                });
+
+            document.getElementById("labels-pagination-jump")
+                .addEventListener("submit", (event) => {
+                    event.preventDefault();
+                    const page = document.getElementById("labels-pagination-jump-input").value;
+                    location.search = location.search.replace(/page=[^&$]*/i, `page=${page}`);
+                });
+
+            document.getElementById("labels-sort-select")
+                .addEventListener("change", (event) => {
+                    const order = event.target.value;
+                    location.search = location.search
+                        .replace(/name=[^&$]*/i, `name=${order}`)
+                        .replace(/page=[^&$]*/i, "page=1");
+                }
+            );
+
+            $("#labels-pagination").twbsPagination({
+                visiblePages: 5,
+                hideOnlyOnePage: true,
+                initiateStartPageClick: false,
+                startPage: Number(`<%- paginate.page %>`) || 1,
+                totalPages: Number(`<%- pagination.pages %>`) || 1,
+                first: `<i class="bi bi-chevron-double-left"></i>`,
+                prev: `<i class="bi bi-chevron-left"></i>`,
+                next: `<i class="bi bi-chevron-right"></i>`,
+                last: `<i class="bi bi-chevron-double-right"></i>`,
+                onPageClick: function (_, page) {
+                    location.search = location.search.replace(/page=[^&$]*/i, `page=${page}`);
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,7 @@
+!routes/
+!util/
+!views/
+!public/
+!index.js
+!package.json
+!.env.template

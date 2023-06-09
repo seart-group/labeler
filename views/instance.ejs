@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Labeling - Instance [<%- locals.instance.id || '?' %>]</title>
+        <%- include('./partials/head/meta'); %>
+        <%- include('./partials/head/link'); %>
+    </head>
+    <body class="vh-100 mw-100 d-flex flex-column justify-content-between">
+        <%- include('./partials/header'); %>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <h1 class="font-monospace mb-3">
+                            <%- instance.category %>
+                        </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col overflow-hidden">
+                        <%- include('./partials/instance/data', { data: instance.data }); %>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%- include('./partials/footer'); %>
+        <%- include('./partials/scripts/general'); %>
+        <%- include('./partials/scripts/hljs'); %>
+    </body>
+</html>

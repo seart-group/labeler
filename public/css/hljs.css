@@ -1,0 +1,21 @@
+.hljs * {
+    font-family: var(--bs-font-monospace)!important;
+}
+
+pre code.hljs mark {
+    padding: 0.2rem;
+    background-color: yellow;
+}
+
+.hljs-ln-numbers {
+    user-select: none;
+    text-align: center;
+    color: #cccccc;
+    border-right: 1px solid #cccccc;
+    vertical-align: top;
+    padding-right: 5px!important;
+}
+
+.hljs-ln-code {
+    padding-left: 10px!important;
+}

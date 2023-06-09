@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Labeling - Label [<%- locals.label.id || '?' %>]</title>
+        <%- include('./partials/head/meta'); %>
+        <%- include('./partials/head/link'); %>
+    </head>
+    <body class="vh-100 mw-100 d-flex flex-column justify-content-between">
+        <%- include('./partials/header'); %>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <h1 class="font-monospace mb-3">
+                            <%= label.name %>
+                        </h1>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-8 col-12">
+                        <table id="category-distribution-<%- label.id %>" class="table table-light table-striped table-bordered caption-top">
+                            <caption>
+                                <div class="d-flex justify-content-between">
+                                    <span>Instance Distribution by Category</span>
+                                    <a href="#" data-target="category-distribution-<%- label.id %>" class="link-secondary">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </div>
+                            </caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Category</th>
+                                    <th class="text-end" scope="col">Instances</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <% categories.forEach((category) => { %>
+                                    <tr>
+                                        <th scope="row"><%- category.category %></th>
+                                        <td class="text-end"><%- category.count %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                            <tfoot class="table-group-divider">
+                                <%
+                                    const instances = categories.map((category) => category.count)
+                                            .reduce((acc, curr) => acc + curr, 0);
+                                %>
+                                <tr>
+                                    <th scope="row">Total</th>
+                                    <td class="text-end"><%- instances %></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-8 col-12">
+                        <table id="reviewer-distribution-<%- label.id %>" class="table table-light table-striped table-bordered caption-top">
+                            <caption>
+                                <div class="d-flex justify-content-between">
+                                    <span>Review Distribution by Reviewer</span>
+                                    <a href="#" data-target="reviewer-distribution-<%- label.id %>" class="link-secondary">
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </div>
+                            </caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Reviewer</th>
+                                    <th class="text-end" scope="col">Reviews</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <% reviewers.forEach((reviewer) => { %>
+                                    <tr>
+                                        <th scope="row"><%- reviewer.name %></th>
+                                        <td class="text-end"><%- reviewer.count %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                            <tfoot class="table-group-divider">
+                                <%
+                                    const reviews = reviewers.map((reviewer) => reviewer.count)
+                                            .reduce((acc, curr) => acc + curr, 0);
+                                %>
+                                <tr>
+                                    <th scope="row">Total</th>
+                                    <td class="text-end"><%- reviews %></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="row gap-2 gap-md-0">
+                    <div class="col-12 col-md d-grid d-md-block text-md-end">
+                        <button type="button"
+                                class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#rename-modal"
+                                autofocus
+                        >
+                            Rename
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-auto d-grid d-md-block text-md-center">
+                        <button type="button"
+                                class="btn btn-secondary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#merge-modal"
+                        >
+                            Merge
+                        </button>
+                    </div>
+                    <div class="col-12 col-md d-grid d-md-block text-md-start">
+                        <button type="button"
+                                class="btn btn-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#delete-modal"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="rename-modal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Rename Label</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="rename-modal-form" class="modal-body">
+                            <label for="rename-modal-form-old-name" class="mb-2">
+                                Old Name:
+                            </label>
+                            <input readonly
+                                   type="text"
+                                   name="old_name"
+                                   id="rename-modal-form-old-name"
+                                   class="form-control mb-2"
+                                   value="<%= label.name %>"
+                            />
+                            <label for="rename-modal-form-new-name" class="mb-2">
+                                New Name:
+                            </label>
+                            <input required
+                                   type="text"
+                                   name="new_name"
+                                   id="rename-modal-form-new-name"
+                                   class="form-control mb-2"
+                            />
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    Rename
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="merge-modal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Merge Label:</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="merge-modal-form" class="modal-body">
+                            <label for="merge-modal-form-source-name" class="mb-2">
+                                Source Name:
+                            </label>
+                            <select disabled
+                                    name="source_name"
+                                    id="merge-modal-form-source-name"
+                                    class="form-select mb-2"
+                            >
+                                <option value="<%- label.name %>" selected>
+                                    <%= label.name %>
+                                </option>
+                            </select>
+                            <label for="merge-modal-form-target-name" class="mb-2">
+                                Target Name:
+                            </label>
+                            <select required
+                                    name="target_name"
+                                    id="merge-modal-form-target-name"
+                                    class="form-select mb-2"
+                            >
+                                <option selected disabled value>Choose a label...</option>
+                                <% labels.forEach((label) => { %>
+                                    <option value="<%- label.name %>">
+                                        <%= label.name %>
+                                    </option>
+                                <% }); %>
+                            </select>
+                            <p class="mb-2">
+                                You are about to merge the source label into the target label.
+                                Doing so will cause all usages of source in reviews to be replaced with the target,
+                                all the while removing the source itself.
+                                <strong>This operation can not be reversed.</strong>
+                                Are you sure you want to proceed?
+                            </p>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-secondary">Yes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="delete-modal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Label</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>You are about to delete the following label:</p>
+                            <pre class="font-monospace text-center"><%= label.name %></pre>
+                            <p>
+                                Doing so will remove it from use, as well as erase it from all reviews that it was used in.
+                                <strong>This operation can not be reversed.</strong>
+                                Are you sure you want to proceed?
+                            </p>
+                            <form id="delete-modal-form" class="d-grid">
+                                <button type="submit" class="btn btn-danger">Yes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%-
+                include(
+                    './partials/toast',
+                    {
+                        id: "label-not-found-toast",
+                        body: "The label could not be found!",
+                        variant: "warning"
+                    }
+                )
+            %>
+            <%-
+                include(
+                    './partials/toast',
+                    {
+                        id: "label-name-taken-toast",
+                        body: "The label name is already in use!",
+                        variant: "warning"
+                    }
+                )
+            %>
+            <%-
+                include(
+                    './partials/toast',
+                    {
+                        id: "unexpected-error-toast",
+                        body: "An unexpected error has occured!",
+                        variant: "danger"
+                    }
+                )
+            %>
+            <%-
+                include(
+                    './partials/toast',
+                    {
+                        id: "socket-disconnect-toast",
+                        body: "Server connection lost!",
+                        variant: "danger"
+                    }
+                )
+            %>
+            <%-
+                include(
+                    './partials/toast',
+                    {
+                        id: "socket-reconnect-toast",
+                        body: "Server connection restored!",
+                        variant: "success"
+                    }
+                )
+            %>
+        </main>
+        <%- include('./partials/footer'); %>
+        <%- include('./partials/scripts/general'); %>
+        <%- include('./partials/scripts/table-download'); %>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io();
+            const renameModalForm = document.getElementById("rename-modal-form");
+            const mergeModalForm = document.getElementById("merge-modal-form");
+            const deleteModalForm = document.getElementById("delete-modal-form");
+            const labelNotFoundToast = document.getElementById("label-not-found-toast");
+            const labelNameTakenToast = document.getElementById("label-name-taken-toast");
+            const unexpectedErrorToast = document.getElementById("unexpected-error-toast");
+            const socketDisconnectToast = document.getElementById("socket-disconnect-toast");
+            const socketReconnectToast = document.getElementById("socket-reconnect-toast");
+
+            const toast = (element) => new bootstrap.Toast(element).show();
+
+            const normalize = (name) => {
+                return name.replaceAll(/\s+/g, " ").toLowerCase().trim();
+            };
+
+            renameModalForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const form = event.target;
+                const elements = form.elements;
+                const old_name = elements.old_name.value;
+                const new_name = normalize(elements.new_name.value);
+                const payload = {
+                    old_name: old_name,
+                    new_name: new_name
+                }
+                axios.post("/labels/rename", payload)
+                    .then(() => {
+                        socket.emit("label_renamed", {
+                            id: Number(`<%- label.id %>`),
+                            old_name: old_name,
+                            new_name: new_name
+                        });
+                        window.location.href = "/labels";
+                    })
+                    .catch(({ response }) => {
+                        let element;
+                        const status = response.status;
+                        switch (status) {
+                        case 404:
+                            element = labelNotFoundToast;
+                            break;
+                        case 409:
+                            element = labelNameTakenToast;
+                            break;
+                        default:
+                            element = unexpectedErrorToast;
+                        }
+                        toast(element);
+                    });
+            });
+
+            mergeModalForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const form = event.target;
+                const elements = form.elements;
+                const source_name = elements.source_name.value;
+                const target_name = elements.target_name.value;
+                const payload = {
+                    source_name: source_name,
+                    target_name: target_name
+                }
+                axios.post("/labels/merge", payload)
+                    .then(() => {
+                        socket.emit("label_removed", {
+                            id: Number(`<%- label.id %>`),
+                            name: source_name
+                        });
+                        window.location.href = "/labels";
+                    })
+                    .catch(({ response }) => {
+                        const element = response.status === 404
+                            ? labelNotFoundToast
+                            : unexpectedErrorToast;
+                        toast(element);
+                    });
+            });
+
+            deleteModalForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+                axios.delete("/labels/<%- label.id %>")
+                    .then(() => {
+                        socket.emit("label_removed", {
+                            id: Number(`<%- label.id %>`),
+                            name: `<%- label.name %>`
+                        });
+                        window.location.href = "/labels";
+                    })
+                    .catch(({ response }) => {
+                        const element = response.status === 404
+                            ? labelNotFoundToast
+                            : unexpectedErrorToast;
+                        toast(element);
+                    });
+            });
+
+            document.querySelectorAll("table caption a").forEach((node) => {
+                node.addEventListener("click", () => {
+                    downloadTableAsCSV(node.dataset.target);
+                });
+            });
+
+            socket.on("disconnect", () => toast(socketDisconnectToast));
+            socket.io.on("reconnect", () => toast(socketReconnectToast));
+        </script>
+    </body>
+</html>

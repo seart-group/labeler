@@ -1,0 +1,56 @@
+<header class="mb-3">
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <% if (!!locals.reviewer) { %>
+                    <i class="bi bi-person-fill"></i>
+                    <span><%- locals.reviewer.name %></span>
+                <% } %>
+            </div>
+            <button type="button"
+                    class="navbar-toggler"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbar"
+                    aria-controls="navbar"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <%
+                        const links = [
+                            "/instances",
+                            "/conflicts",
+                            "/labels",
+                            "/progress",
+                            "/export"
+                        ];
+                        links.forEach((link) => {
+                            const name = link.charAt(1).toUpperCase() + link.substring(2);
+                            const classes = link === locals.path ? "nav-link active" : "nav-link";
+                    %>
+                        <li class="nav-item">
+                            <a class="<%- classes %>" href="<%- link %>"><%- name %></a>
+                        </li>
+                    <%
+                        });
+                    %>
+                </ul>
+                <% if (!!locals.reviewer) { %>
+                    <div class="ms-auto py-2">
+                        <span>Instances Reviewed:</span>
+                        &nbsp;
+                        <span class="font-monospace">
+                            <%- locals.reviewer.progress || 0 %>
+                        </span>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,36 @@
+<script>
+    // https://stackoverflow.com/a/56370447/17173324
+    function downloadTableAsCSV(id, separator = ",") {
+        const selector = `table#${id} > :not(tfoot):not(caption) > tr`;
+        const rows = document.querySelectorAll(selector);
+        const csv = [];
+        for (let i = 0; i < rows.length; i++) {
+            const row = [];
+            const cols = rows[i].querySelectorAll("td, th");
+            for (let j = 0; j < cols.length; j++) {
+                // https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv
+                const data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, "")
+                    .replace(/(\s\s)/gm, " ")
+                    .replace(/"/g, '""');
+                row.push(`"${data}"`);
+            }
+            csv.push(row.join(separator));
+        }
+        const csv_string = csv.join("\n");
+        const date = new Date().toISOString()
+            .replace(/T.*/, "")
+            .split("-")
+            .reverse()
+            .join("-");
+        const filename = `${id}-${date}.csv`;
+        const href = `data:text/csv;charset=utf-8,${encodeURIComponent(csv_string)}`;
+        const link = document.createElement("a");
+        link.style.display = "none";
+        link.setAttribute("href", href);
+        link.setAttribute("download", filename);
+        link.setAttribute("target", "_blank");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>

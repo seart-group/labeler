@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'Trebuchet MS';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Trebuchet MS'), url('../fonts/trebuc.woff') format('woff');
+}
+
+* {
+    font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+}
+
+#label-offcanvas, #discard-offcanvas {
+    width: 550px!important;
+}
+
+.page-item.disabled {
+    cursor: not-allowed!important;
+}
+
+.option-agree:not(:checked) {
+    background-color: rgba(var(--bs-success-rgb), 0.35);
+}
+
+.option-disagree:not(:checked) {
+    background-color: rgba(var(--bs-danger-rgb), 0.35);
+}
+
+.option-regular:not(:checked) {
+    background-color: inherit;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none!important;
+}
+
+input[type=number] {
+    -moz-appearance: textfield!important;
+}
