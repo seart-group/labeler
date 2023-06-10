@@ -10,13 +10,7 @@ export const get = async (req, res) => {
     const { rows: [ { count: items } ] } = await pool.query("SELECT COUNT(id) FROM instance");
     const pages = Math.ceil(items / req.query.limit);
     res.render("instances", {
-        instances: instances,
-        pagination: {
-            items: items,
-            pages: pages,
-            current: current,
-            limit: limit,
-            id: id
-        }
+        instances,
+        pagination: { items, pages, current, limit, id }
     });
 };

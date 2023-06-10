@@ -12,13 +12,7 @@ export const get = async (req, res) => {
     );
     const pages = Math.ceil(items / req.query.limit);
     res.render("conflicts", {
-        conflicts: conflicts,
-        pagination: {
-            items: items,
-            pages: pages,
-            current: current,
-            limit: limit,
-            id: id
-        }
+        conflicts,
+        pagination: { items, pages, current, limit, id }
     });
 };

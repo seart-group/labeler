@@ -10,9 +10,5 @@ export const get = async (req, res) => {
         "SELECT * FROM next_instance($1)",
         [ reviewer?.id || null ]
     );
-    res.render("review", {
-        reviewer: reviewer,
-        instance: instance,
-        labels: labels
-    });
+    res.render("review", { reviewer, instance, labels });
 };

@@ -14,12 +14,7 @@ export const get = async (req, res) => {
         const { rows: labels } = await pool.query("SELECT id, name FROM label ORDER BY name");
         const { rows: categories } = await pool.query("SELECT * FROM label_distribution_category($1)", parameters);
         const { rows: reviewers } = await pool.query("SELECT * FROM label_distribution_reviewer($1)", parameters);
-        res.render("label", {
-            label: label,
-            labels: labels,
-            categories: categories,
-            reviewers: reviewers
-        });
+        res.render("label", { label, labels, categories, reviewers });
     }
 };
 

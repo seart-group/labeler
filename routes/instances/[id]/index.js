@@ -9,6 +9,6 @@ export const get = async (req, res) => {
             title: "Instance does not exist!"
         });
     } else {
-        res.render("instance", { instance: instance });
+        res.render("instance", { instance });
     }
 };
