@@ -397,19 +397,24 @@
                     return;
                 }
 
-                let idx = -1;
-                for (let i = 0; i < options.length; i++) {
-                    const current = options.item(i);
-                    if (current.innerHTML > option.innerHTML) {
-                        idx = i;
-                        break;
+                let lower = 0;
+                let upper = options.length - 1;
+                let index = -1;
+                while (lower <= upper) {
+                    const median = Math.floor((lower + upper) / 2);
+                    const current = options.item(median);
+                    if (current.innerHTML < option.innerHTML) {
+                        lower = median + 1;
+                    } else {
+                        upper = median - 1;
+                        index = median;
                     }
                 }
 
-                if (idx === -1) {
+                if (index === -1) {
                     labelInstanceSelect.appendChild(option);
                 } else {
-                    labelInstanceSelect.insertBefore(option, options.item(idx));
+                    labelInstanceSelect.insertBefore(option, options.item(index));
                 }
             };
 
