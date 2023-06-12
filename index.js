@@ -4,6 +4,7 @@ import * as path from "path";
 import express from "express";
 import paginate from "express-paginate";
 import minifyHTML from "express-minify-html-2";
+import { minify as minifyJS } from "uglify-js";
 import bodyParser from "body-parser";
 import { config } from "dotenv";
 import { router } from "express-file-routing";
@@ -51,6 +52,21 @@ app.use(
         }
     })
 );
+app.use((req, res, next) => {
+    const originalSend = res.send;
+    res.send = function (body) {
+        if (typeof body === "string") {
+            const minified = body.replace(
+                /<script>([\s\S]*?)<\/script>/gi,
+                (match, content) => `<script>${(minifyJS(content).code)}</script>`
+            );
+            originalSend.call(this, minified);
+        } else {
+            originalSend.call(this, body);
+        }
+    };
+    next();
+});
 
 app.use("/", await router());
 
