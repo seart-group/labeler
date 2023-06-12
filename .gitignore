@@ -252,3 +252,4 @@ dist
 
 ### Docker Compose
 *.prod.yml
+*.override.yml
