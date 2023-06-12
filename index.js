@@ -3,6 +3,7 @@ import morgan from "morgan";
 import * as path from "path";
 import express from "express";
 import paginate from "express-paginate";
+import minifyHTML from "express-minify-html-2";
 import bodyParser from "body-parser";
 import { config } from "dotenv";
 import { router } from "express-file-routing";
@@ -37,6 +38,19 @@ app.use((req, res, next) => {
     res.locals.os = parseUserAgent(user_agent).os.family;
     next();
 });
+app.use(
+    minifyHTML({
+        override: true,
+        exceptionUrls: false,
+        htmlMinifier: {
+            removeComments: true,
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true,
+            removeAttributeQuotes: true,
+            removeEmptyAttributes: true,
+        }
+    })
+);
 
 app.use("/", await router());
 
