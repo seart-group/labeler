@@ -250,6 +250,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-### Docker Compose
+### Project-specific
+schema/00_init.sql
 *.prod.yml
 *.override.yml
