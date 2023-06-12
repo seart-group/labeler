@@ -22,12 +22,13 @@
                             <%
                                 instances.forEach((instance) => {
                                     const id = instance.id;
+                                    const category = instance.category;
                             %>
                                 <a id="instance-<%- id %>"
                                    href="/instances/<%- id %>"
-                                   class="list-group-item list-group-item-dark list-group-item-action font-monospace"
+                                   class="list-group-item list-group-item-dark list-group-item-action font-monospace text-truncate"
                                 >
-                                    Instance: <%- id %>
+                                    Instance: <%- id %> [<%- category %>]
                                 </a>
                             <%
                                 });

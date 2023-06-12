@@ -22,12 +22,13 @@
                             <%
                                 conflicts.forEach((conflict) => {
                                     const id = conflict.id;
+                                    const category = conflict.category;
                             %>
                                 <a id="conflict-<%- id %>"
                                    href="/conflicts/<%- id %>"
-                                   class="list-group-item list-group-item-dark list-group-item-action font-monospace"
+                                   class="list-group-item list-group-item-dark list-group-item-action font-monospace text-truncate"
                                 >
-                                    Conflict: <%- id %>
+                                    Conflict: <%- id %> [<%- category %>]
                                 </a>
                             <%
                                 });
