@@ -52,6 +52,17 @@ LEFT OUTER JOIN instance_review review
 GROUP BY reviewer.id
 ORDER BY reviewer.id;
 
+CREATE OR REPLACE VIEW "reviewer_discard_progress" AS
+SELECT
+    reviewer.id AS id,
+    reviewer.name AS name,
+    COUNT(discard.reviewer_id)::INTEGER AS progress
+FROM reviewer
+LEFT OUTER JOIN instance_discard discard
+    ON reviewer.id = discard.reviewer_id
+GROUP BY reviewer.id
+ORDER BY reviewer.id;
+
 CREATE OR REPLACE VIEW "instance_review_conflict_label" AS
 SELECT DISTINCT ON (instance.id)
     instance.id,
