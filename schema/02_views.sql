@@ -41,7 +41,7 @@ SELECT bucket.category
 FROM instance_review_bucket bucket
 WHERE bucket.count > 366;
 
-CREATE OR REPLACE VIEW "instance_review_progress" AS
+CREATE OR REPLACE VIEW "reviewer_review_progress" AS
 SELECT
     reviewer.id AS id,
     reviewer.name AS name,
