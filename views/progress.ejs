@@ -18,11 +18,11 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-6 col-md-8 col-12">
-                        <table id="review-progress" class="table table-light table-striped table-bordered caption-top">
+                        <table id="reviewer-progress" class="table table-light table-striped table-bordered caption-top">
                             <caption>
                                 <div class="d-flex justify-content-between">
-                                    <span>Review Progress</span>
-                                    <a href="#" data-target="review-progress" class="link-secondary">
+                                    <span>Reviewer Progress</span>
+                                    <a href="#" data-target="reviewer-progress" class="link-secondary">
                                         <i class="bi bi-download"></i>
                                     </a>
                                 </div>
@@ -30,25 +30,34 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Reviewer</th>
-                                    <th class="text-end" scope="col">Reviews Completed</th>
+                                    <th class="text-center w-25" scope="col">
+                                        Reviews
+                                    </th>
+                                    <th class="text-center w-25" scope="col">
+                                        Discards
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
                                 <% reviewers.forEach((reviewer) => { %>
                                     <tr>
                                         <th scope="row"><%- reviewer.name %></th>
-                                        <td class="text-end"><%- reviewer.progress %></td>
+                                        <td class="text-center"><%- reviewer.review_progress %></td>
+                                        <th class="text-center"><%- reviewer.discard_progress %></th>
                                     </tr>
                                 <% }); %>
                             </tbody>
                             <tfoot class="table-group-divider">
                                 <%
-                                    const total = reviewers.map((reviewer) => reviewer.progress)
+                                    const total_reviews = reviewers.map((reviewer) => reviewer.review_progress)
+                                            .reduce((acc, curr) => acc + curr, 0);
+                                    const total_discards = reviewers.map((reviewer) => reviewer.discard_progress)
                                             .reduce((acc, curr) => acc + curr, 0);
                                 %>
                                 <tr>
                                     <th scope="row">Total</th>
-                                    <td class="text-end"><%- total %></td>
+                                    <td class="text-center"><%- total_reviews %></td>
+                                    <td class="text-center"><%- total_discards %></td>
                                 </tr>
                             </tfoot>
                         </table>
