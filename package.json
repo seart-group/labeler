@@ -25,7 +25,7 @@
   "homepage": "https://github.com/seart-group/labeler#readme",
   "devDependencies": {
     "eslint": "^8.33.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^3.0.1"
   },
   "dependencies": {
     "body-parser": "^1.20.1",
