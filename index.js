@@ -3,14 +3,15 @@ import morgan from "morgan";
 import * as path from "path";
 import express from "express";
 import paginate from "express-paginate";
+import actuator from "express-actuator";
 import minifyHTML from "express-minify-html-2";
-import { minify as minifyJS } from "uglify-js";
+import {minify as minifyJS} from "uglify-js";
 import bodyParser from "body-parser";
-import { config } from "dotenv";
-import { router } from "express-file-routing";
-import { fileURLToPath } from "url";
-import { parse as parseUserAgent } from "useragent";
-import { Server as IO } from "socket.io";
+import {config} from "dotenv";
+import {router} from "express-file-routing";
+import {fileURLToPath} from "url";
+import {parse as parseUserAgent} from "useragent";
+import {Server as IO} from "socket.io";
 
 config();
 
@@ -67,6 +68,8 @@ app.use((req, res, next) => {
     };
     next();
 });
+
+app.use(actuator({ basePath: "/actuator" }));
 
 app.use("/", await router());
 
