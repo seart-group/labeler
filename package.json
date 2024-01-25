@@ -6,6 +6,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "lint": "npm-run-all lint-js lint-css lint-md",
+    "lint-js": "eslint routes/* util/*",
+    "lint-css": "stylelint stylelint public/css/*.css",
+    "lint-md": "markdownlint *.md",
     "start": "NODE_ENV=production node index.js",
     "dev": "nodemon index.js"
   },
