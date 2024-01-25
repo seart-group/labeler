@@ -10,6 +10,8 @@
     "lint-js": "eslint routes/* util/*",
     "lint-css": "stylelint stylelint public/css/*.css",
     "lint-md": "markdownlint *.md",
+    "minify": "npm-run-all minify-css",
+    "minify-css": "cleancss --batch --batch-suffix '' public/css/*.css",
     "start": "NODE_ENV=production node index.js",
     "dev": "nodemon index.js"
   },
