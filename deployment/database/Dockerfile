@@ -1,5 +1,7 @@
 FROM postgres:16.1-alpine
 
+ENV TZ=UTC
+
 WORKDIR /docker-entrypoint-initdb.d
 
 COPY schema/01_schema.sql     \

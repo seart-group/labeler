@@ -14,7 +14,6 @@ services:
       - data:/var/lib/postgresql/data
     networks: [ default ]
     environment:
-      TZ: UTC
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASS}
