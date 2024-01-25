@@ -20,6 +20,7 @@ RUN apk update --quiet && \
     rm -rf node_modules
 
 FROM node:20.11.0-alpine
+LABEL maintainer="Ozren Dabić (dabico@usi.ch)"
 
 ENV NODE_ENV=production
 

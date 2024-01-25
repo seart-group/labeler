@@ -1,4 +1,5 @@
 FROM tiredofit/db-backup:4.0.35
+LABEL maintainer="Ozren Dabić (dabico@usi.ch)"
 
 ENV CONTAINER_ENABLE_MONITORING='FALSE' \
     DEFAULT_BACKUP_BEGIN='0000' \
