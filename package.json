@@ -50,7 +50,7 @@
     "pg-error-enum": "^0.6.1",
     "pg-query-stream": "^4.5.3",
     "postgres-array": "^3.0.2",
-    "socket.io": "^4.7.2",
+    "socket.io": "^4.7.4",
     "uglify-js": "^3.17.4",
     "useragent": "^2.3.0"
   }
