@@ -6,7 +6,7 @@
 }
 
 * {
-    font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+    font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
     font-style: normal;
     font-variant: normal;
 }
@@ -32,9 +32,9 @@
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-    -webkit-appearance: none!important;
+    appearance: none!important;
 }
 
-input[type=number] {
-    -moz-appearance: textfield!important;
+input[type='number'] {
+    appearance: textfield!important;
 }
