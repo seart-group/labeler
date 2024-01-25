@@ -8,6 +8,8 @@ COPY schema/01_schema.sql     \
      schema/04_procedures.sql \
      ./
 
+COPY scripts/init-data.sh ./~init-data.sh
+
 WORKDIR /
 
 # TODO: The Postgres image limits permissions for the initializtion scripts.
