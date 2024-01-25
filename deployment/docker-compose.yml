@@ -12,10 +12,6 @@ services:
       dockerfile: deployment/database/Dockerfile
     volumes:
       - data:/var/lib/postgresql/data
-      - ../schema/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
-      - ../schema/02_views.sql:/docker-entrypoint-initdb.d/02_views.sql
-      - ../schema/03_functions.sql:/docker-entrypoint-initdb.d/03_functions.sql
-      - ../schema/04_procedures.sql:/docker-entrypoint-initdb.d/04_procedures.sql
       - ./data/label.txt:/docker-entrypoint-initdb.d/label.txt
       - ./data/reviewer.txt:/docker-entrypoint-initdb.d/reviewer.txt
       - ./data/init-data.sh:/docker-entrypoint-initdb.d/~init_data.sh
