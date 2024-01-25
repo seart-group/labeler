@@ -12,7 +12,9 @@ COPY index.js          \
      ./
 
 RUN apk update --quiet && \
-    apk add --quiet --no-cache gettext moreutils && \
+    apk add --quiet --no-cache \
+        gettext=~0.22.3 \
+        moreutils=~0.68 && \
     npm ci --quiet && \
     npm run --silent minify && \
     rm -rf node_modules
