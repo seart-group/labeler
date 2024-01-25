@@ -5,8 +5,8 @@
 .hljs-ln-numbers {
     user-select: none;
     text-align: center;
-    color: #cccccc;
-    border-right: 1px solid #cccccc;
+    color: #ccc;
+    border-right: 1px solid #ccc;
     vertical-align: top;
     padding-right: 5px!important;
 }
