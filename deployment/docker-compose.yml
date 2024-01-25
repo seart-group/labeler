@@ -20,11 +20,6 @@ services:
     restart: always
 
   labeling-backup:
-    # TODO: Backup service is disabled by default.
-    #       To re-enable it, you have to define a `docker-compose.override.yml`,
-    #       such that it contains the `labeling-backup` service definition,
-    #       with `restart` set to `always`, and `entrypoint` to `/init`.
-    #       Don't forget to specify the override file when deploying!
     container_name: labeling-backup
     hostname: labeling-backup
     image: seart/labeling-backup:latest
@@ -44,8 +39,7 @@ services:
     depends_on:
       labeling-database:
         condition: service_healthy
-    restart: no
-    entrypoint: "true"
+    restart: always
 
   labeling-server:
     container_name: labeling-server
