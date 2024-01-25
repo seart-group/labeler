@@ -6,7 +6,7 @@ services:
   labeling-database:
     container_name: labeling-database
     hostname: labeling-database
-    image: labeling/database:latest
+    image: seart/labeling-database:latest
     build:
       context: ../
       dockerfile: deployment/database/Dockerfile
@@ -27,7 +27,7 @@ services:
     #       Don't forget to specify the override file when deploying!
     container_name: labeling-backup
     hostname: labeling-backup
-    image: labeling/backup:latest
+    image: seart/labeling-backup:latest
     build:
       context: ../
       dockerfile: deployment/backup/Dockerfile
@@ -50,7 +50,7 @@ services:
   labeling-server:
     container_name: labeling-server
     hostname: labeling-server
-    image: labeling/server:latest
+    image: seart/labeling-server:latest
     build:
       context: ../
       dockerfile: deployment/server/Dockerfile
