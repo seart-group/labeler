@@ -37,24 +37,20 @@ services:
     #       Don't forget to specify the override file when deploying!
     container_name: labeling-backup
     hostname: labeling-backup
-    image: tiredofit/db-backup:latest
+    image: labeling/backup:latest
+    build:
+      context: ../
+      dockerfile: deployment/backup/Dockerfile
     volumes:
       - /tmp/labeling/backup:/backup
     networks: [ default ]
     links: [ labeling-database ]
     environment:
-      DB_TYPE: pgsql
-      DB_HOST: labeling-database
-      DB_NAME: ${DATABASE_NAME}
-      DB_USER: ${DATABASE_USER}
-      DB_PASS: ${DATABASE_PASS}
-      DB_DUMP_FREQ: "1440"
-      DB_DUMP_BEGIN: "0000"
-      SPLIT_DB: FALSE
-      CHECKSUM: SHA1
-      COMPRESSION: GZ
-      EXTRA_OPTS: --data-only
-      CONTAINER_ENABLE_MONITORING: FALSE
+      DB01_TYPE: pgsql
+      DB01_HOST: labeling-database
+      DB01_NAME: ${DATABASE_NAME}
+      DB01_USER: ${DATABASE_USER}
+      DB01_PASS: ${DATABASE_PASS}
     depends_on:
       labeling-database:
         condition: service_healthy
