@@ -99,7 +99,18 @@
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                <% buckets.forEach((bucket) => { %>
+                                <%
+                                    if (!buckets.length) {
+                                %>
+                                    <tr>
+                                        <th scope="row" colspan="2" class="text-center p-3">
+                                            This project has no instances.
+                                        </th>
+                                    </tr>
+                                <%
+                                    }
+                                    buckets.forEach((bucket) => {
+                                %>
                                     <tr>
                                         <th scope="row">
                                             <span class="font-monospace">
@@ -108,7 +119,9 @@
                                         </th>
                                         <td class="text-end"><%- bucket.count %></td>
                                     </tr>
-                                <% }); %>
+                                <%
+                                    });
+                                %>
                             </tbody>
                         </table>
                     </div>
