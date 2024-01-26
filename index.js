@@ -23,7 +23,10 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(morgan( nodeEnv === "development" ? "dev" : "combined" ));
+app.use(morgan(
+    nodeEnv === "development" ? "dev" : "combined",
+    nodeEnv === "production" ? { skip: (req, _) => req.connection.remoteAddress === "::ffff:127.0.0.1" } : {}
+));
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
