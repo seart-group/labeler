@@ -45,11 +45,13 @@
                                 <%
                                     const instances = categories.map((category) => category.count)
                                             .reduce((acc, curr) => acc + curr, 0);
+                                    if (!!instances) {
                                 %>
-                                <tr>
-                                    <th scope="row">Total</th>
-                                    <td class="text-end"><%- instances %></td>
-                                </tr>
+                                    <tr>
+                                        <th scope="row">Total</th>
+                                        <td class="text-end"><%- instances %></td>
+                                    </tr>
+                                <% } %>
                             </tfoot>
                         </table>
                     </div>
@@ -83,11 +85,13 @@
                                 <%
                                     const reviews = reviewers.map((reviewer) => reviewer.count)
                                             .reduce((acc, curr) => acc + curr, 0);
+                                    if (!!reviews) {
                                 %>
-                                <tr>
-                                    <th scope="row">Total</th>
-                                    <td class="text-end"><%- reviews %></td>
-                                </tr>
+                                    <tr>
+                                        <th scope="row">Total</th>
+                                        <td class="text-end"><%- reviews %></td>
+                                    </tr>
+                                <% } %>
                             </tfoot>
                         </table>
                     </div>
