@@ -22,9 +22,11 @@
                             <caption>
                                 <div class="d-flex justify-content-between">
                                     <span>Instance Distribution by Category</span>
-                                    <a href="#" data-target="category-distribution-<%- label.id %>" class="link-secondary">
-                                        <i class="bi bi-download"></i>
-                                    </a>
+                                    <% if (categories.length) { %>
+                                        <a href="#" data-target="category-distribution-<%- label.id %>" class="link-secondary">
+                                            <i class="bi bi-download"></i>
+                                        </a>
+                                    <% } %>
                                 </div>
                             </caption>
                             <thead>
@@ -71,9 +73,11 @@
                             <caption>
                                 <div class="d-flex justify-content-between">
                                     <span>Review Distribution by Reviewer</span>
-                                    <a href="#" data-target="reviewer-distribution-<%- label.id %>" class="link-secondary">
-                                        <i class="bi bi-download"></i>
-                                    </a>
+                                    <% if (reviewers.length) { %>
+                                        <a href="#" data-target="reviewer-distribution-<%- label.id %>" class="link-secondary">
+                                            <i class="bi bi-download"></i>
+                                        </a>
+                                    <% } %>
                                 </div>
                             </caption>
                             <thead>
