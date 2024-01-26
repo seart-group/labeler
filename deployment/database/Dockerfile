@@ -1,9 +1,10 @@
 FROM postgres:16.1-alpine
 LABEL maintainer="Ozren Dabić (dabico@usi.ch)"
 
-ENV TZ=UTC
+ENV DATA_DIRECTORY=/docker-entrypoint-initdb.d \
+    TZ=UTC
 
-WORKDIR /docker-entrypoint-initdb.d
+WORKDIR $DATA_DIRECTORY
 
 COPY schema/01_schema.sql     \
      schema/02_views.sql      \
