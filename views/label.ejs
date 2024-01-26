@@ -34,7 +34,16 @@
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                <% categories.forEach((category) => { %>
+                                <% if (!categories.length) { %>
+                                    <tr>
+                                        <th scope="row" colspan="3" class="text-center p-3">
+                                            This project has no instances.
+                                        </th>
+                                    </tr>
+                                <%
+                                    }
+                                    categories.forEach((category) => {
+                                %>
                                     <tr>
                                         <th scope="row"><%- category.category %></th>
                                         <td class="text-end"><%- category.count %></td>
@@ -74,7 +83,16 @@
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                <% reviewers.forEach((reviewer) => { %>
+                                <% if (!reviewers.length) { %>
+                                    <tr>
+                                        <th scope="row" colspan="3" class="text-center p-3">
+                                            This project has no reviewers.
+                                        </th>
+                                    </tr>
+                                <%
+                                    }
+                                    reviewers.forEach((reviewer) => {
+                                %>
                                     <tr>
                                         <th scope="row"><%- reviewer.name %></th>
                                         <td class="text-end"><%- reviewer.count %></td>
