@@ -252,5 +252,7 @@ dist
 
 ### Project-specific
 schema/00_init.sql
-*.prod.yml
-*.override.yml
+instance.*
+label.txt
+reviewer.txt
+docker-compose.*.yml
