@@ -30,11 +30,13 @@ HAVING COUNT(review.id) >= 2;
 
 CREATE OR REPLACE VIEW "instance_review_bucket" AS
 SELECT
-    finished.category AS category,
-    COUNT(finished.id)::INTEGER AS count
-FROM instance_review_finished finished
-GROUP BY finished.category
-ORDER BY finished.category;
+    categories.category AS category,
+    COALESCE(COUNT(finished.id), 0)::INTEGER AS count
+FROM categories
+LEFT JOIN instance_review_finished finished
+    ON categories.category = finished.category
+GROUP BY categories.category
+ORDER BY categories.category;
 
 CREATE OR REPLACE VIEW "instance_review_bucket_filled" AS
 SELECT bucket.category
