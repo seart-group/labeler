@@ -10,9 +10,18 @@
         hljs.lineNumbersBlock(element, { startFrom: 1, singleLine: true });
     };
 
+    const injectAnchorTags = (element) => {
+        const content = element.textContent;
+        const url = content.slice(1, -1);
+        const regex = /(https?:\/\/)([^ ]+)/;
+        const replace = regex.test(url);
+        if (replace) element.innerHTML = `<a href="${url}" target="_blank">${content}</a>`;
+    };
+
     hljs.configure({ languages: ['json'] });
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('pre code').forEach(highlightElement);
         document.querySelectorAll('code.hljs').forEach(numberElementLines);
+        document.querySelectorAll('span.hljs-string').forEach(injectAnchorTags);
     });
 </script>
