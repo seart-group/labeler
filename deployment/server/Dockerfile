@@ -21,6 +21,7 @@ RUN apk update --quiet && \
 
 FROM node:20.11.0-alpine
 LABEL maintainer="Ozren Dabić (dabico@usi.ch)"
+LABEL com.centurylinklabs.watchtower.scope="labeler"
 
 ENV NODE_ENV=production \
     TZ=UTC
