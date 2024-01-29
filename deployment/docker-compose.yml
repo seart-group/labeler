@@ -22,20 +22,26 @@ services:
   labeling-backup:
     container_name: labeling-backup
     hostname: labeling-backup
-    image: seart/labeling-backup:latest
-    build:
-      context: ../
-      dockerfile: deployment/backup/Dockerfile
+    image: tiredofit/db-backup:latest
     volumes:
       - /tmp/labeling/backup:/backup
     networks: [ default ]
     links: [ labeling-database ]
     environment:
+      TZ: UTC
       DB01_TYPE: pgsql
       DB01_HOST: labeling-database
       DB01_NAME: ${DATABASE_NAME}
       DB01_USER: ${DATABASE_USER}
       DB01_PASS: ${DATABASE_PASS}
+      DEFAULT_BACKUP_BEGIN: '0000'
+      DEFAULT_CLEANUP_TIME: '10080'
+      DEFAULT_EXTRA_BACKUP_OPTS: --data-only
+      DEFAULT_COMPRESSION: GZ
+      DEFAULT_CHECKSUM: SHA1
+      DEFAULT_CREATE_LATEST_SYMLINK: FALSE
+      CONTAINER_ENABLE_MONITORING: FALSE
+      CONTAINER_ENABLE_MESSAGING: FALSE
     depends_on:
       labeling-database:
         condition: service_healthy

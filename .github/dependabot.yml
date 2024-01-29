@@ -15,13 +15,6 @@ updates:
     labels:
       - dependencies
   - package-ecosystem: docker
-    directory: /deployment/backup
-    schedule:
-      interval: daily
-    target-branch: master
-    labels:
-      - dependencies
-  - package-ecosystem: docker
     directory: /deployment/database
     schedule:
       interval: daily
