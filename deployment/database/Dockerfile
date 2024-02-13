@@ -1,4 +1,4 @@
-FROM postgres:16.1-alpine
+FROM postgres:16.2-alpine
 LABEL maintainer="Ozren Dabić (dabico@usi.ch)"
 LABEL com.centurylinklabs.watchtower.scope="labeler"
 
