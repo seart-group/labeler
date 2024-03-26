@@ -1,6 +1,6 @@
 import pool from "../../util/pg-pool.js";
 import HTTPStatus from "../../util/http-status.js";
-import { PostgresError as PGError } from "pg-error-enum";
+import {PostgresError as PGError} from "pg-error-enum";
 
 export const get = async (req, res) => {
     const current = req.query.page || 1;
@@ -20,8 +20,18 @@ export const get = async (req, res) => {
 export const post = (req, res) => {
     pool.query("INSERT INTO label(name) VALUES ($1) RETURNING *", [ req.body.name ])
         .then(({ rows }) => { res.status(HTTPStatus.CREATED).send(rows[0]); })
-        .catch(({ code }) => {
-            const status = code === PGError.UNIQUE_VIOLATION ? HTTPStatus.CONFLICT : HTTPStatus.INTERNAL_SERVER_ERROR;
-            res.status(status).end();
+        .catch(({ code: PGCode }) => {
+            let code;
+            switch (PGCode) {
+            case PGError.NOT_NULL_VIOLATION:
+                code = HTTPStatus.BAD_REQUEST;
+                break;
+            case PGError.UNIQUE_VIOLATION:
+                code = HTTPStatus.CONFLICT;
+                break;
+            default:
+                code = HTTPStatus.INTERNAL_SERVER_ERROR;
+            }
+            res.status(code).end();
         });
 };
