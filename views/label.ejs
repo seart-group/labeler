@@ -280,6 +280,16 @@
                 include(
                     './partials/toast',
                     {
+                        id: "label-not-valid-toast",
+                        body: "The label name is not valid!",
+                        variant: "danger"
+                    }
+                )
+            %>
+            <%-
+                include(
+                    './partials/toast',
+                    {
                         id: "unexpected-error-toast",
                         body: "An unexpected error has occured!",
                         variant: "danger"
@@ -319,6 +329,7 @@
             const deleteModalForm = document.getElementById("delete-modal-form");
             const labelNotFoundToast = document.getElementById("label-not-found-toast");
             const labelNameTakenToast = document.getElementById("label-name-taken-toast");
+            const labelNotValidToast = document.getElementById("label-not-valid-toast");
             const unexpectedErrorToast = document.getElementById("unexpected-error-toast");
             const socketDisconnectToast = document.getElementById("socket-disconnect-toast");
             const socketReconnectToast = document.getElementById("socket-reconnect-toast");
@@ -348,6 +359,9 @@
                         let element;
                         const status = response.status;
                         switch (status) {
+                        case 400:
+                            element = labelNotValidToast;
+                            break;
                         case 404:
                             element = labelNotFoundToast;
                             break;
