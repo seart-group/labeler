@@ -1,5 +1,5 @@
 import pool from "../../../util/pg-pool.js";
-import { parse as parsePGArray } from "postgres-array";
+import {parse as parsePGArray} from "postgres-array";
 
 export const get = async (req, res) => {
     const params = [ req.params.id ];
@@ -11,9 +11,15 @@ export const get = async (req, res) => {
         });
     } else {
         instance.conflicts = parsePGArray(instance.conflicts);
-        const { rows: reviews } = await pool.query("SELECT * FROM instance_review_details($1)", params);
-        const { rows: discards } = await pool.query("SELECT * FROM instance_discard_details($1)", params);
-        const { rows: labels } = await pool.query("SELECT * FROM label ORDER BY name");
+        const [
+            { rows: reviews },
+            { rows: discards },
+            { rows: labels }
+        ] = await Promise.all([
+            pool.query("SELECT * FROM instance_review_details($1)", params),
+            pool.query("SELECT * FROM instance_discard_details($1)", params),
+            pool.query("SELECT * FROM label ORDER BY name")
+        ]);
         res.render("conflict", { instance, reviews, discards, labels });
     }
 };
