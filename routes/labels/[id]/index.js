@@ -1,6 +1,6 @@
 import pool from "../../../util/pg-pool.js";
 import HTTPStatus from "../../../util/http-status.js";
-import { PostgresError as PGError } from "pg-error-enum";
+import {PostgresError as PGError} from "pg-error-enum";
 
 export const get = async (req, res) => {
     const parameters = [ req.params.id ];
@@ -11,7 +11,7 @@ export const get = async (req, res) => {
             title: "Label does not exist!"
         });
     } else {
-        const { rows: labels } = await pool.query("SELECT id, name FROM label ORDER BY name");
+        const { rows: labels } = await pool.query("SELECT id, name FROM label WHERE id != $1 ORDER BY name", parameters);
         const { rows: categories } = await pool.query("SELECT * FROM label_distribution_category($1)", parameters);
         const { rows: reviewers } = await pool.query("SELECT * FROM label_distribution_reviewer($1)", parameters);
         res.render("label", { label, labels, categories, reviewers });
