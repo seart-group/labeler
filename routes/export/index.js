@@ -1,3 +1,1 @@
-export const get = (_, res) => {
-    res.render("export");
-};
+export const get = (_, res) => res.render("export");
