@@ -289,40 +289,15 @@
                     <div class="offcanvas-body">
                         <form id="discard-instance">
                             <div class="form-group mb-2">
-                                <!-- TODO: Introduce your own discard reasons by adding the following
-                                    <div class="form-check">
-                                        <input type="radio"
-                                               id="discard-option-x"
-                                               class="form-check-input"
-                                               name="discard-option"
-                                               value="1"
-                                               required
-                                        />
-                                        <label id="discard-option-x-value"
-                                               class="form-check-label"
-                                               for="discard-option-x"
-                                        >
-                                            Discard reasoning goes here
-                                        </label>
-                                    </div>
-                                -->
-                                <div class="form-check">
-                                    <input type="radio"
-                                           id="discard-option-other"
-                                           class="form-check-input"
-                                           name="discard-option"
-                                           value="other"
-                                           required
-                                    />
-                                    <label class="form-check-label" for="discard-option-other">
-                                        Other:
-                                    </label>
-                                    <input type="text"
-                                           id="discard-option-other-value"
-                                           class="form-control"
-                                           aria-label="Other Reason Input"
-                                    />
-                                </div>
+                                <label class="form-check-label" for="discard-instance-remarks">
+                                    Remarks:
+                                </label>
+                                <textarea id="discard-instance-remarks"
+                                          class="form-control"
+                                          style="resize: none"
+                                          rows="5"
+                                          required
+                                ></textarea>
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-danger btn-lg">
@@ -371,9 +346,7 @@
             const labelInstanceInteresting = document.getElementById("label-instance-interesting");
             const labelInstanceRemarks = document.getElementById("label-instance-remarks");
             const discardInstance = document.getElementById("discard-instance");
-            const discardOptions = document.getElementsByName("discard-option");
-            const discardOptionOther = document.getElementById("discard-option-other");
-            const discardOptionOtherValue = document.getElementById("discard-option-other-value");
+            const discardInstanceRemarks = document.getElementById("discard-instance-remarks");
             const socketDisconnectToast = document.getElementById("socket-disconnect-toast");
             const socketReconnectToast = document.getElementById("socket-reconnect-toast");
 
@@ -464,30 +437,11 @@
                 axios.post(url, payload).then(redirect);
             });
 
-            discardOptionOther.addEventListener("change", () => {
-                discardOptionOtherValue.required = true;
-                discardOptionOtherValue.setAttribute("pattern", ".*\\S+.*");
-            });
-
-            [ ...discardOptions ].slice(0, -1).forEach((option) => {
-                option.addEventListener("change", () => {
-                    discardOptionOtherValue.required = false;
-                    discardOptionOtherValue.removeAttribute("pattern");
-                });
-            });
-
             discardInstance.addEventListener("submit", (event) => {
                 event.preventDefault();
-                const [ selectedOption ] = [ ...discardOptions ].filter(option => option.checked)
-                    .map(option => option.value);
-                const target = document.getElementById(`discard-option-${selectedOption}-value`);
-                const remarks = normalize((selectedOption === "other") ? target.value : target.innerHTML);
-                const url = `/conflicts/${instance_id}/discard`;
-                const payload = {
-                    conflicts: conflicts,
-                    remarks: remarks || null
-                };
-                axios.post(url, payload).then(redirect);
+                const remarks = normalize(discardInstanceRemarks.value);
+                const payload = { conflicts: conflicts, remarks: remarks };
+                axios.post(`/conflicts/${instance_id}/discard`, payload).then(redirect);
             });
 
             socket.on("label_append", (label) => addOption(label));
