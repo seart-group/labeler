@@ -211,6 +211,7 @@
         </main>
         <%- include('./partials/footer'); %>
         <%- include('./partials/scripts/general'); %>
+        <%- include('./partials/scripts/normalize') %>
         <%- include('./partials/scripts/hljs'); %>
         <% if (!!reviewer && !!instance) { %>
             <script src="/socket.io/socket.io.js"></script>
@@ -233,14 +234,6 @@
 
                 const refresh = () => history.go();
                 const toast = (element) => new bootstrap.Toast(element).show();
-
-                const normalize = (name) => {
-                    const coalesced = name ?? "";
-                    const normalized = coalesced.replaceAll(/\s+/g, " ");
-                    const lowercase = normalized.toLowerCase();
-                    const trimmed = lowercase.trim();
-                    return (trimmed.length === 0) ? null : trimmed;
-                };
 
                 const addOption = (label) => {
                     const search = normalize(labelFilter.value);

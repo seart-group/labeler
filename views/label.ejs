@@ -309,6 +309,7 @@
         </main>
         <%- include('./partials/footer'); %>
         <%- include('./partials/scripts/general'); %>
+        <%- include('./partials/scripts/normalize') %>
         <%- include('./partials/scripts/table-download'); %>
         <script src="/socket.io/socket.io.js"></script>
         <script>
@@ -323,14 +324,6 @@
             const socketReconnectToast = document.getElementById("socket-reconnect-toast");
 
             const toast = (element) => new bootstrap.Toast(element).show();
-
-            const normalize = (name) => {
-                const coalesced = name ?? "";
-                const normalized = coalesced.replaceAll(/\s+/g, " ");
-                const lowercase = normalized.toLowerCase();
-                const trimmed = lowercase.trim();
-                return (trimmed.length === 0) ? null : trimmed;
-            };
 
             renameModalForm.addEventListener("submit", (event) => {
                 event.preventDefault();
