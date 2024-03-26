@@ -6,12 +6,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "lint": "npm-run-all lint-js lint-css lint-md",
-    "lint-js": "eslint routes/* util/*",
-    "lint-css": "stylelint stylelint public/css/*.css",
-    "lint-md": "markdownlint *.md",
-    "minify": "npm-run-all minify-css",
-    "minify-css": "cleancss --batch --batch-suffix '' public/css/*.css",
+    "lint": "npm-run-all --parallel lint:*",
+    "lint:js": "eslint routes/* util/*",
+    "lint:css": "stylelint stylelint public/css/*.css",
+    "lint:md": "markdownlint *.md",
+    "minify": "npm-run-all --parallel minify:*",
+    "minify:css": "cleancss --batch --batch-suffix '' public/css/*.css",
     "start": "NODE_ENV=production node index.js",
     "dev": "nodemon index.js"
   },
