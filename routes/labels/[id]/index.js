@@ -11,9 +11,15 @@ export const get = async (req, res) => {
             title: "Label does not exist!"
         });
     } else {
-        const { rows: labels } = await pool.query("SELECT id, name FROM label WHERE id != $1 ORDER BY name", parameters);
-        const { rows: categories } = await pool.query("SELECT * FROM label_distribution_category($1)", parameters);
-        const { rows: reviewers } = await pool.query("SELECT * FROM label_distribution_reviewer($1)", parameters);
+        const [
+            { rows: labels },
+            { rows: categories },
+            { rows: reviewers }
+        ] = await Promise.all([
+            pool.query("SELECT id, name FROM label WHERE id != $1 ORDER BY name", parameters),
+            pool.query("SELECT * FROM label_distribution_category($1)", parameters ),
+            pool.query("SELECT * FROM label_distribution_reviewer($1)", parameters )
+        ]);
         res.render("label", { label, labels, categories, reviewers });
     }
 };
