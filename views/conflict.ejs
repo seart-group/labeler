@@ -354,7 +354,7 @@
             const toast = (element) => new bootstrap.Toast(element).show();
 
             const addOption = (label) => {
-                const search = normalize(labelFilter.value);
+                const search = normalize(labelFilter.value) ?? "";
                 const options = labelInstanceSelect.options;
                 const option = new Option(label.name, label.id);
                 if (!label.name.includes(search)) {
