@@ -306,9 +306,9 @@
                     const selected = [ ...labelInstanceSelect.selectedOptions ].map(({ value }) => Number(value));
                     const payload = {
                         reviewer_id: reviewer_id,
+                        label_ids: selected,
                         is_interesting: labelInstanceInteresting.checked,
-                        remarks: labelInstanceRemarks.value || null,
-                        label_ids: selected
+                        remarks: normalize(labelInstanceRemarks.value),
                     };
                     axios.post(`/instances/${instance_id}/review`, payload).then(refresh);
                 });

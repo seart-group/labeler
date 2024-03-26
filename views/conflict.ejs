@@ -423,14 +423,13 @@
             labelInstance.addEventListener("submit", (event) => {
                 event.preventDefault();
                 const selected = [ ...labelInstanceSelect.selectedOptions ].map(({ value }) => Number(value));
-                const url = `/conflicts/${instance_id}/review`;
                 const payload = {
                     conflicts: conflicts,
                     label_ids: selected,
                     is_interesting: labelInstanceInteresting.checked,
-                    remarks: labelInstanceRemarks.value || null
+                    remarks: normalize(labelInstanceRemarks.value),
                 };
-                axios.post(url, payload).then(redirect);
+                axios.post(`/conflicts/${instance_id}/review`, payload).then(redirect);
             });
 
             discardInstance.addEventListener("submit", (event) => {
