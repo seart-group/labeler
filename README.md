@@ -1,4 +1,4 @@
-# Manual Labeling Platform
+# Labeler
 
 ## Usage
 
