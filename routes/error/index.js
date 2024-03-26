@@ -1,3 +1,1 @@
-export const get = (_, res) => {
-    res.render("error");
-};
+export const get = (_, res) => res.render("error");
