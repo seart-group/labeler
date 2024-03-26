@@ -275,7 +275,7 @@
                 };
 
                 labelFilter.addEventListener("input", () => {
-                    const search = normalize(labelFilter.value);
+                    const search = normalize(labelFilter.value) ?? "";
                     const existing_options = labelInstanceSelect.options;
                     for (let idx = 0; idx < existing_options.length; idx++) {
                         const current_option = existing_options.item(idx);
