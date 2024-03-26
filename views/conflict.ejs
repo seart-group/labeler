@@ -354,7 +354,11 @@
             const toast = (element) => new bootstrap.Toast(element).show();
 
             const normalize = (name) => {
-                return name.replaceAll(/\s+/g, " ").toLowerCase().trim();
+                const coalesced = name ?? "";
+                const normalized = coalesced.replaceAll(/\s+/g, " ");
+                const lowercase = normalized.toLowerCase();
+                const trimmed = lowercase.trim();
+                return (trimmed.length === 0) ? null : trimmed;
             };
 
             const addOption = (label) => {
