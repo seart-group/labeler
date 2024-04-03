@@ -9,16 +9,8 @@
         <%- include('./partials/header'); %>
         <main>
             <h1 class="text-center mb-3">
-                <% if (locals.icon) { %>
-                    <i class="bi <%= locals.icon %>"></i>
-                <% } else { %>
-                    <i class="bi bi-bug-fill"></i>
-                <% } %>
-                <% if (locals.title) { %>
-                    <%= locals.title %>
-                <% } else { %>
-                    An Unexpected Error Has Occurred!
-                <% } %>
+                <i class="bi <%= locals.icon || "bi-bug-fill" %>"></i>
+                <%= locals.title || "An Unexpected Error Has Occurred!" %>
             </h1>
             <%- include('./partials/home-button'); %>
         </main>
