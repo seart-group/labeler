@@ -12,6 +12,7 @@ import {config} from "dotenv";
 import {router} from "express-file-routing";
 import {fileURLToPath} from "url";
 import {parse as parseUserAgent} from "useragent";
+import {createStream as createRotatingFileStream} from "rotating-file-stream";
 import {Server as IO} from "socket.io";
 
 config();
@@ -30,7 +31,15 @@ app.use(morgan(nodeEnv === "development" ? "dev" : "common"));
 app.use(morgan(
     "combined",
     {
-        stream: fs.createWriteStream(path.join(__logs, "server.log"), { flags: "a" }),
+        stream: createRotatingFileStream(
+            (time, i) => time ? `server.${time.toISOString().split("T")[0]}.${i}.log.gz` : "server.log",
+            {
+                path: __logs,
+                size: "100M",
+                interval: "1d",
+                compress: "gzip",
+            },
+        ),
         skip: (req, _) => {
             switch (req.connection.remoteAddress) {
             case "::1":
