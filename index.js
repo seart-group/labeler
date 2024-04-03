@@ -1,5 +1,6 @@
 import ip from "ip";
 import morgan from "morgan";
+import * as fs from "node:fs";
 import * as path from "path";
 import express from "express";
 import paginate from "express-paginate";
@@ -17,15 +18,29 @@ config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const __logs = path.join(__dirname, "logs");
+if (!fs.existsSync(__logs)) fs.mkdirSync(__logs, {recursive: true});
 
 const nodeEnv = process.env.NODE_ENV || "development";
 const port = process.env.PORT || 3000;
 
 const app = express();
 
+app.use(morgan(nodeEnv === "development" ? "dev" : "common"));
 app.use(morgan(
-    nodeEnv === "development" ? "dev" : "combined",
-    nodeEnv === "production" ? { skip: (req, _) => req.connection.remoteAddress === "::ffff:127.0.0.1" } : {}
+    "combined",
+    {
+        stream: fs.createWriteStream(path.join(__logs, "server.log"), { flags: "a" }),
+        skip: (req, _) => {
+            switch (req.connection.remoteAddress) {
+            case "::1":
+            case "::ffff::127.0.0.1":
+                return true;
+            default:
+                return false;
+            }
+        },
+    }
 ));
 
 app.set("views", "./views");
