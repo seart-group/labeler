@@ -1,6 +1,5 @@
 FROM postgres:16.2-alpine
 LABEL maintainer="Ozren Dabić (dabico@usi.ch)"
-LABEL com.centurylinklabs.watchtower.scope="labeler"
 
 ENV DATA_DIRECTORY=/docker-entrypoint-initdb.d \
     TZ=UTC
