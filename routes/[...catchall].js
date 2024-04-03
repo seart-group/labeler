@@ -1,6 +1,9 @@
+import HTTPStatus from "../util/http-status.js";
+
 export const get = (_, res) => {
-    res.render("error", {
-        icon: "bi-emoji-dizzy-fill",
-        title: "Page Not Found!"
-    });
+    res.status(HTTPStatus.NOT_FOUND)
+        .render("error", {
+            icon: "bi-emoji-dizzy-fill",
+            title: "Page Not Found!"
+        });
 };
