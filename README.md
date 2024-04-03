@@ -51,6 +51,8 @@ services:
     container_name: labeling-server
     hostname: labeling-server
     image: seart/labeling-server:latest
+    volumes:
+      - ./logs:/labeling/logs
     environment:
       DATABASE_HOST: labeling-database
       DATABASE_PORT: 5432
