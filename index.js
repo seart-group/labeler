@@ -102,7 +102,12 @@ app.use(actuator({ basePath: "/actuator" }));
 app.use("/", await router());
 
 app.use(async (err, _req, res, _next) => {
-    res.status(HTTPStatus.INTERNAL_SERVER_ERROR).render("error", { message: err.message });
+    const message = nodeEnv === "production"
+        ? err.message
+        : err.stack.split("\n")
+            .map(line => line.trimStart())
+            .join("\n");
+    res.status(HTTPStatus.INTERNAL_SERVER_ERROR).render("error", { message });
 });
 
 const server = app.listen(port, () => {

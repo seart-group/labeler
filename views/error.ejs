@@ -13,13 +13,18 @@
                 <%= locals.title || "An Unexpected Error Has Occurred!" %>
             </h1>
             <% if (locals.message) { %>
-                <p class="text-center font-monospace">
-                    <%= locals.message %>
-                </p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <pre class="border rounded"><code class="language-plaintext"><%= locals.message %></code></pre>
+                        </div>
+                    </div>
+                </div>
             <% } %>
             <%- include('./partials/home-button'); %>
         </main>
         <%- include('./partials/footer'); %>
         <%- include('./partials/scripts/general'); %>
+        <%- include('./partials/scripts/hljs'); %>
     </body>
 </html>
