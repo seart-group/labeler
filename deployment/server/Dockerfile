@@ -37,7 +37,7 @@ RUN apk update --quiet && \
 
 HEALTHCHECK \
   --start-period=15s \
-  --interval=15s \
+  --interval=60s \
   --timeout=5s \
   --retries=5 \
 CMD curl --silent --fail --request GET http://localhost:3000/actuator/health | \
