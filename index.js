@@ -14,6 +14,7 @@ import {fileURLToPath} from "url";
 import {parse as parseUserAgent} from "useragent";
 import {createStream as createRotatingFileStream} from "rotating-file-stream";
 import {Server as IO} from "socket.io";
+import HTTPStatus from "./util/http-status.js";
 
 config();
 
@@ -100,8 +101,8 @@ app.use(actuator({ basePath: "/actuator" }));
 
 app.use("/", await router());
 
-app.use(async (_err, _req, res, _next) => {
-    res.redirect("error");
+app.use(async (err, _req, res, _next) => {
+    res.status(HTTPStatus.INTERNAL_SERVER_ERROR).render("error", { message: err.message });
 });
 
 const server = app.listen(port, () => {
