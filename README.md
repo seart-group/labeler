@@ -44,6 +44,8 @@ services:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASS}
     restart: always
+    labels:
+       - "com.centurylinklabs.watchtower.scope=labeler"
     
   labeling-server:
     container_name: labeling-server
@@ -62,6 +64,8 @@ services:
       restart_policy:
         condition: on-failure
         max_attempts: 3
+    labels:
+       - "com.centurylinklabs.watchtower.scope=labeler"
     ports:
       - "7755:3000"
         
