@@ -52,7 +52,7 @@
     "morgan": "^1.10.0",
     "pg": "^8.11.4",
     "pg-error-enum": "^0.7.1",
-    "pg-query-stream": "^4.5.4",
+    "pg-query-stream": "^4.5.5",
     "postgres-array": "^3.0.2",
     "socket.io": "^4.7.5",
     "uglify-js": "^3.17.4",
