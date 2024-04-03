@@ -76,6 +76,10 @@ app.use(actuator({ basePath: "/actuator" }));
 
 app.use("/", await router());
 
+app.use(async (_err, _req, res, _next) => {
+    res.redirect("error");
+});
+
 const server = app.listen(port, () => {
     if (nodeEnv === "development") {
         console.debug(`
