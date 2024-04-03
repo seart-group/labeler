@@ -12,6 +12,11 @@
                 <i class="bi <%= locals.icon || "bi-bug-fill" %>"></i>
                 <%= locals.title || "An Unexpected Error Has Occurred!" %>
             </h1>
+            <% if (locals.message) { %>
+                <p class="text-center font-monospace">
+                    <%= locals.message %>
+                </p>
+            <% } %>
             <%- include('./partials/home-button'); %>
         </main>
         <%- include('./partials/footer'); %>
