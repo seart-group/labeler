@@ -6,10 +6,11 @@ export const get = async (req, res) => {
     const parameters = [ req.params.id ];
     const { rows: [ label ] } = await pool.query("SELECT * FROM label WHERE id = $1", parameters);
     if (!label) {
-        res.render("error", {
-            icon: "bi-none",
-            title: "Label does not exist!"
-        });
+        res.status(HTTPStatus.NOT_FOUND)
+            .render("error", {
+                icon: "bi-none",
+                title: "Label does not exist!"
+            });
     } else {
         const [
             { rows: labels },
