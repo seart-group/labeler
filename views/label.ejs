@@ -201,7 +201,7 @@
                                     id="merge-modal-form-source-name"
                                     class="form-select mb-2"
                             >
-                                <option value="<%- label.name %>" selected>
+                                <option value="<%= label.name %>" selected>
                                     <%= label.name %>
                                 </option>
                             </select>
@@ -215,7 +215,7 @@
                             >
                                 <option selected disabled value>Choose a label...</option>
                                 <% labels.forEach((label) => { %>
-                                    <option value="<%- label.name %>">
+                                    <option value="<%= label.name %>">
                                         <%= label.name %>
                                     </option>
                                 <% }); %>
