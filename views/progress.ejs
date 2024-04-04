@@ -68,7 +68,7 @@
                                 const total_discards = reviewers.map((reviewer) => reviewer.discard_progress)
                                         .reduce((acc, curr) => acc + curr, 0);
                                 const total = total_reviews + total_discards;
-                                if (!!total) {
+                                if (!!total && reviewers.length > 1) {
                             %>
                                 <tfoot class="table-group-divider">
                                     <tr>
