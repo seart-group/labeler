@@ -44,7 +44,7 @@ app.use(morgan(
         skip: (req, _) => {
             switch (req.connection.remoteAddress) {
             case "::1":
-            case "::ffff::127.0.0.1":
+            case "::ffff:127.0.0.1":
                 return true;
             default:
                 return false;
