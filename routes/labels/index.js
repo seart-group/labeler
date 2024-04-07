@@ -6,11 +6,19 @@ export const get = async (req, res) => {
     const current = req.query.page || 1;
     const limit = req.query.limit || 10;
     const name = req.query.name || 1;
-    const order = (name > 0) ? "ASC" : "DESC";
-    const query = `SELECT id, name FROM label ORDER BY name ${order} OFFSET $1 LIMIT $2`;
-    const { rows: labels } = await pool.query(query, [ (current - 1) * limit, limit ]);
-    const { rows: [ { count: items } ] } = await pool.query("SELECT COUNT(id) FROM label");
-    const pages = Math.ceil(items / req.query.limit);
+    const [
+        { rows: [ { count: items } ] },
+        { rows: labels }
+    ] = await Promise.all([
+        pool.query("SELECT COUNT(id) FROM label"),
+        pool.query(
+            name > 0
+                ? "SELECT id, name FROM label ORDER BY name OFFSET $1 LIMIT $2"
+                : "SELECT id, name FROM label ORDER BY name DESC OFFSET $1 LIMIT $2",
+            [ (current - 1) * limit, limit ]
+        )
+    ]);
+    const pages = Math.ceil(items / limit);
     res.render("labels", {
         labels,
         pagination: { items, pages, current, limit, name }
