@@ -136,12 +136,5 @@
         <%- include('./partials/footer'); %>
         <%- include('./partials/scripts/general'); %>
         <%- include('./partials/scripts/table-download'); %>
-        <script>
-            document.querySelectorAll("table caption a").forEach((node) => {
-                node.addEventListener("click", () => {
-                    downloadTableAsCSV(node.dataset.target);
-                });
-            });
-        </script>
     </body>
 </html>

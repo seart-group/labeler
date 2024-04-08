@@ -420,12 +420,6 @@
                     });
             });
 
-            document.querySelectorAll("table caption a").forEach((node) => {
-                node.addEventListener("click", () => {
-                    downloadTableAsCSV(node.dataset.target);
-                });
-            });
-
             socket.on("disconnect", () => toast(socketDisconnectToast));
             socket.io.on("reconnect", () => toast(socketReconnectToast));
         </script>
