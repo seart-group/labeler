@@ -211,14 +211,15 @@
             </div>
         </main>
         <%- include('./partials/footer'); %>
-        <%- include('./partials/scripts/axios'); %>
         <%- include('./partials/scripts/bootstrap'); %>
         <%- include('./partials/scripts/normalize') %>
         <%- include('./partials/scripts/hljs'); %>
         <%- include('./partials/scripts/autocomplete'); %>
         <% if (!!reviewer && !!instance) { %>
             <script type="module">
+                import axios from "https://cdn.jsdelivr.net/npm/axios@1.6.8/+esm";
                 import {io} from "https://cdn.jsdelivr.net/npm/socket.io-client@4.7.5/+esm";
+
                 const socket = io();
                 const reviewer_id = Number(`<%- reviewer.id %>`);
                 const instance_id = Number(`<%- instance.id %>`);
