@@ -15,6 +15,11 @@
     width: 550px!important;
 }
 
+.autocomplete-menu.dropdown-menu {
+    position: relative!important;
+    margin-bottom: .5rem!important;
+}
+
 .page-item.disabled {
     cursor: not-allowed!important;
 }
@@ -29,6 +34,10 @@
 
 .option-regular:not(:checked) {
     background-color: inherit;
+}
+
+.text-current {
+    color: currentColor!important;
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {

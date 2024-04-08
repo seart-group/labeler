@@ -289,15 +289,16 @@
                     </div>
                     <div class="offcanvas-body">
                         <form id="discard-instance">
-                            <div class="form-group mb-2">
+                            <div class="form-group">
                                 <label class="form-check-label" for="discard-instance-remarks">
                                     Remarks:
                                 </label>
-                                <textarea id="discard-instance-remarks"
-                                          class="form-control"
-                                          style="resize: none"
-                                          rows="5"
-                                ></textarea>
+                                <input id="discard-instance-remarks"
+                                       class="form-control autocomplete mb-2"
+                                       placeholder="Type to reveal suggestions..."
+                                       data-server="/discards/remarks"
+                                       data-query-param="name"
+                                />
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-danger btn-lg">
@@ -333,6 +334,7 @@
         <%- include('./partials/scripts/general'); %>
         <%- include('./partials/scripts/normalize') %>
         <%- include('./partials/scripts/hljs'); %>
+        <%- include('./partials/scripts/autocomplete'); %>
         <script src="/socket.io/socket.io.js"></script>
         <script>
             const socket = io();
