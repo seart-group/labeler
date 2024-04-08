@@ -1,6 +1,6 @@
 import pool from "../../../util/pg-pool.js";
 import HTTPStatus from "../../../util/http-status.js";
-import { PostgresError as PGError } from "pg-error-enum";
+import {PostgresError as PGError} from "pg-error-enum";
 
 export const post = (req, res) => {
     const payload = req.body;

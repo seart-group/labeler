@@ -1,4 +1,4 @@
-import { constants } from "http2";
+import {constants} from "http2";
 
 const HTTPStatus = Object.freeze(
     Object.fromEntries(

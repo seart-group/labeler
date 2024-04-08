@@ -1,7 +1,7 @@
 import QueryStream from "pg-query-stream";
 import pool from "../../../util/pg-pool.js";
 import HTTPStatus from "../../../util/http-status.js";
-import { stringify as stringifyJSONStream } from "JSONStream";
+import {stringify as stringifyJSONStream} from "JSONStream";
 
 export const get = (req, res) => {
     const target = req.params.target;
