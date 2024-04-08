@@ -20,11 +20,11 @@
             if (replace) element.innerHTML = `<a href="${url}" target="_blank">${content}</a>`;
         };
 
-        hljs.configure({languages: ['json', 'plaintext']});
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('pre code').forEach(highlightElement);
-            document.querySelectorAll('code.hljs').forEach(numberElementLines);
-            document.querySelectorAll('span.hljs-string').forEach(injectAnchorTags);
+        hljs.configure({languages: ["json", "plaintext"]});
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll("pre code").forEach(highlightElement);
+            document.querySelectorAll("code.hljs").forEach(numberElementLines);
+            document.querySelectorAll("span.hljs-string").forEach(injectAnchorTags);
         });
     })(hljs);
 </script>
