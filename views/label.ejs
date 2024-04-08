@@ -221,13 +221,13 @@
                                     </option>
                                 <% }); %>
                             </select>
-                            <p class="mb-2">
+                            <div role="alert" class="alert alert-warning mb-2">
                                 You are about to merge the source label into the target label.
-                                Doing so will cause all usages of source in reviews to be replaced with the target,
-                                all the while removing the source itself.
-                                <strong>This operation can not be reversed.</strong>
-                                Are you sure you want to proceed?
-                            </p>
+                                This action will replace all instances of the source in reviews with the target,
+                                simultaneously removing the source label.
+                                <strong>Please note that this operation cannot be undone.</strong>
+                                Are you certain you wish to continue?
+                            </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-secondary">Yes</button>
                             </div>
@@ -243,13 +243,18 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>You are about to delete the following label:</p>
-                            <pre class="font-monospace text-center"><%= label.name %></pre>
-                            <p>
-                                Doing so will remove it from use, as well as erase it from all reviews that it was used in.
-                                <strong>This operation can not be reversed.</strong>
+                            <div role="alert" class="alert alert-danger mb-2">
+                                You are about to delete the label:
+                                <pre class="font-monospace text-center my-2"><%= label.name %></pre>
+                                This action will remove the label from current use and erase it from all reviews where it was previously applied.
+                                <strong>Please note that this operation cannot be reversed.</strong>
                                 Are you sure you want to proceed?
-                            </p>
+                            </div>
+                            <div role="alert" class="alert alert-secondary mb-2">
+                                Please be aware that removing this label will result
+                                in the subsequent removal of all conflicts attributed solely to it,
+                                as opposed to marking them as resolved.
+                            </div>
                             <form id="delete-modal-form" class="d-grid">
                                 <button type="submit" class="btn btn-danger">Yes</button>
                             </form>
