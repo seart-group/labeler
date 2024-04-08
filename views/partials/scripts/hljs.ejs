@@ -3,26 +3,28 @@
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/json.min.js" integrity="sha384-RbRhXcXx5VHUdUaC5R0oV+XBXA5GhkaVCUzK8xN19K3FmtWSHyGVgulK92XnhBsI" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js" integrity="sha384-+ch8x/dgaV//v6Sa8m4v5+7KScnpCuxHqilN8njQ013CEKg3Fbd8Q3oN9tfpouLh" crossorigin="anonymous"></script>
 <script>
-    const highlightElement = (element) => {
-        hljs.highlightElement(element);
-    };
+    (function (hljs){
+        const highlightElement = (element) => {
+            hljs.highlightElement(element);
+        };
 
-    const numberElementLines = (element) => {
-        hljs.lineNumbersBlock(element, { startFrom: 1, singleLine: true });
-    };
+        const numberElementLines = (element) => {
+            hljs.lineNumbersBlock(element, {startFrom: 1, singleLine: true});
+        };
 
-    const injectAnchorTags = (element) => {
-        const content = element.textContent;
-        const url = content.slice(1, -1);
-        const regex = /(https?:\/\/)([^ ]+)/;
-        const replace = regex.test(url);
-        if (replace) element.innerHTML = `<a href="${url}" target="_blank">${content}</a>`;
-    };
+        const injectAnchorTags = (element) => {
+            const content = element.textContent;
+            const url = content.slice(1, -1);
+            const regex = /(https?:\/\/)([^ ]+)/;
+            const replace = regex.test(url);
+            if (replace) element.innerHTML = `<a href="${url}" target="_blank">${content}</a>`;
+        };
 
-    hljs.configure({ languages: ['json'] });
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('pre code').forEach(highlightElement);
-        document.querySelectorAll('code.hljs').forEach(numberElementLines);
-        document.querySelectorAll('span.hljs-string').forEach(injectAnchorTags);
-    });
+        hljs.configure({languages: ['json', 'plaintext']});
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('pre code').forEach(highlightElement);
+            document.querySelectorAll('code.hljs').forEach(numberElementLines);
+            document.querySelectorAll('span.hljs-string').forEach(injectAnchorTags);
+        });
+    })(hljs);
 </script>
