@@ -20,6 +20,26 @@
     margin-bottom: .5rem!important;
 }
 
+.logo-box {
+    color: var(--bs-light)!important;
+    background-color: var(--bs-navbar-color)!important;
+    padding-left: .5rem!important;
+    padding-right: .125rem!important;
+    margin-right: .125rem!important
+}
+
+.logo-text {
+    color: var(--bs-navbar-color)!important
+}
+
+.logo:hover .logo-box {
+    background-color: var(--bs-navbar-hover-color)!important
+}
+
+.logo:hover .logo-text {
+    color: var(--bs-navbar-hover-color)!important
+}
+
 .page-item.disabled {
     cursor: not-allowed!important;
 }

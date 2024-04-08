@@ -1,12 +1,9 @@
 <header class="mb-3">
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <div class="navbar-brand">
-                <% if (!!locals.reviewer) { %>
-                    <i class="bi bi-person-fill"></i>
-                    <span><%- locals.reviewer.name %></span>
-                <% } %>
-            </div>
+            <a href="https://seart.si.usi.ch" target="_blank" class="navbar-brand logo">
+                <span class="logo-box">SE</span><span class="logo-text">ART</span>
+            </a>
             <button type="button"
                     class="navbar-toggler"
                     data-bs-toggle="collapse"
@@ -42,16 +39,20 @@
                     %>
                 </ul>
                 <% if (!!locals.reviewer) { %>
-                    <div class="vr d-none d-lg-inline-block ms-lg-auto me-lg-2"></div>
+                    <div class="py-2 ms-lg-auto">
+                        <i class="bi bi-person-fill"></i>
+                        <span><%- locals.reviewer.name %></span>
+                    </div>
+                    <div class="vr d-none d-lg-inline-block mx-lg-2"></div>
                     <div class="py-2">
-                        <span>Reviewed:</span>
+                        <span><i class="bi bi-eye-fill" title="Reviewed Instances"></i></span>
                         <span class="font-monospace">
                             <%- locals.reviewer.review_progress || 0 %>
                         </span>
                     </div>
                     <div class="vr d-none d-lg-inline-block mx-lg-2"></div>
                     <div class="py-2">
-                        <span>Discarded:</span>
+                        <span><i class="bi bi-trash-fill" title="Discarded Instances"></i></span>
                         <span class="font-monospace">
                             <%- locals.reviewer.discard_progress || 0 %>
                         </span>
