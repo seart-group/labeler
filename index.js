@@ -1,5 +1,6 @@
 import ip from "ip";
 import morgan from "morgan";
+import compression from "compression";
 import * as fs from "node:fs";
 import * as path from "path";
 import express from "express";
@@ -96,6 +97,8 @@ app.use((req, res, next) => {
     };
     next();
 });
+
+app.use(compression());
 
 app.use(actuator({ basePath: "/actuator" }));
 
