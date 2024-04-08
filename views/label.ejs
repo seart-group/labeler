@@ -328,9 +328,8 @@
         <%- include('./partials/scripts/bootstrap'); %>
         <%- include('./partials/scripts/normalize') %>
         <%- include('./partials/scripts/table-download'); %>
-        <%- include('./partials/scripts/socket'); %>
-        <script src="/socket.io/socket.io.js"></script>
-        <script>
+        <script type="module">
+            import {io} from "https://cdn.jsdelivr.net/npm/socket.io-client@4.7.5/+esm";
             const socket = io();
             const renameModalForm = document.getElementById("rename-modal-form");
             const mergeModalForm = document.getElementById("merge-modal-form");

@@ -216,10 +216,9 @@
         <%- include('./partials/scripts/normalize') %>
         <%- include('./partials/scripts/hljs'); %>
         <%- include('./partials/scripts/autocomplete'); %>
-        <%- include('./partials/scripts/socket'); %>
         <% if (!!reviewer && !!instance) { %>
-            <script src="/socket.io/socket.io.js"></script>
-            <script>
+            <script type="module">
+                import {io} from "https://cdn.jsdelivr.net/npm/socket.io-client@4.7.5/+esm";
                 const socket = io();
                 const reviewer_id = Number(`<%- reviewer.id %>`);
                 const instance_id = Number(`<%- instance.id %>`);
