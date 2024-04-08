@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "lint": "npm-run-all --parallel lint:*",
-    "lint:js": "eslint routes/* util/*",
+    "lint:js": "eslint .",
     "lint:css": "stylelint stylelint public/css/*.css",
     "lint:md": "markdownlint *.md",
     "minify": "npm-run-all --parallel minify:*",
@@ -30,8 +30,10 @@
   },
   "homepage": "https://github.com/seart-group/labeler#readme",
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "clean-css-cli": "^5.6.3",
-    "eslint": "^8.57.0",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
     "markdownlint": "^0.34.0",
     "markdownlint-cli": "^0.39.0",
     "nodemon": "^3.1.0",
