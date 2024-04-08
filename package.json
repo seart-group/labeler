@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "lint": "npm-run-all --parallel lint:*",
-    "lint:js": "eslint routes/* util/*",
+    "lint:js": "eslint .",
     "lint:css": "stylelint stylelint public/css/*.css",
     "lint:md": "markdownlint *.md",
     "minify": "npm-run-all --parallel minify:*",
