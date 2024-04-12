@@ -6,10 +6,12 @@ ENV TZ=UTC \
 
 WORKDIR $DATA_DIRECTORY
 
-COPY schema/01_schema.sql     \
-     schema/02_views.sql      \
-     schema/03_functions.sql  \
-     schema/04_procedures.sql \
+COPY schema/01_definitions_schema.sql        \
+     schema/02_definitions_function.sql      \
+     schema/03_definitions_procedure.sql     \
+     schema/04_definitions_view.sql          \
+     schema/05_implementations_function.sql  \
+     schema/06_implementations_procedure.sql \
      ./
 
 COPY scripts/init-data.sh ./~init-data.sh
