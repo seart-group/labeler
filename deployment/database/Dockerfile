@@ -1,8 +1,8 @@
 FROM postgres:16.2-alpine
 LABEL maintainer="Ozren Dabić (dabico@usi.ch)"
 
-ENV DATA_DIRECTORY=/docker-entrypoint-initdb.d \
-    TZ=UTC
+ENV TZ=UTC \
+    DATA_DIRECTORY=/docker-entrypoint-initdb.d
 
 WORKDIR $DATA_DIRECTORY
 

@@ -22,8 +22,8 @@ RUN apk update --quiet && \
 FROM node:20.12.2-alpine
 LABEL maintainer="Ozren Dabić (dabico@usi.ch)"
 
-ENV NODE_ENV=production \
-    TZ=UTC
+ENV TZ=UTC \
+    NODE_ENV=production
 
 WORKDIR /labeling
 
