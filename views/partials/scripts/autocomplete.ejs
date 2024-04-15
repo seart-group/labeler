@@ -2,8 +2,17 @@
     import Autocomplete from "https://cdn.jsdelivr.net/npm/bootstrap5-autocomplete@1.1.25/autocomplete.min.js";
 
     (function (Autocomplete) {
+        const toggle_spinner = instance => {
+            const input = instance.getInput();
+            const id = `${input.id}-spinner`;
+            const spinner = document.getElementById(id);
+            spinner.classList.toggle("d-none");
+        };
+
         for (const element of document.querySelectorAll(".autocomplete")) {
             new Autocomplete(element, {
+                onBeforeFetch: toggle_spinner,
+                onAfterFetch: toggle_spinner,
                 notFoundMessage: "No suggestions available...",
                 highlightClass: "text-decoration-underline bg-transparent text-current p-0",
                 suggestionsThreshold: 2,

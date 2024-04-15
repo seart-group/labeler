@@ -15,9 +15,9 @@
     width: var(--bs-breakpoint-md)!important;
 }
 
-.autocomplete-menu.dropdown-menu {
+.dropdown-menu.autocomplete-menu {
     position: relative!important;
-    margin-bottom: .5rem!important;
+    margin-top: .5rem!important;
 }
 
 .logo-box {
@@ -58,6 +58,10 @@
 
 .text-current {
     color: currentcolor!important;
+}
+
+.z-10 {
+    z-index: 10!important;
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {

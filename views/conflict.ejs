@@ -293,12 +293,21 @@
                                 <label class="form-check-label" for="discard-instance-remarks">
                                     Remarks:
                                 </label>
-                                <input id="discard-instance-remarks"
-                                       class="form-control autocomplete mb-2"
-                                       placeholder="Type to reveal suggestions..."
-                                       data-server="/discards/remarks"
-                                       data-query-param="name"
-                                />
+                                <div class="position-relative mb-2">
+                                    <input id="discard-instance-remarks"
+                                           class="form-control autocomplete"
+                                           placeholder="Type to reveal suggestions..."
+                                           data-server="/discards/remarks"
+                                           data-query-param="name"
+                                    />
+                                    <div id="discard-instance-remarks-spinner"
+                                         class="position-absolute top-50 end-0 translate-middle-y p-2 opacity-75 z-10 d-none"
+                                    >
+                                        <div class="spinner-border spinner-border-sm text-secondary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-danger btn-lg">
