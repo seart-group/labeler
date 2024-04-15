@@ -97,7 +97,7 @@
                                             <% if (review.remarks) { %>
                                                 <span class="px-2">Remarks:</span>
                                                 <div id="reviewer-<%- review.reviewer_id %>-remark" class="fst-italic p-2">
-                                                    "<%- review.remarks %>"
+                                                    "<%= review.remarks %>"
                                                 </div>
                                             <% } %>
                                         </div>
@@ -128,7 +128,7 @@
                                             <% if (discard.remarks) { %>
                                                 <span class="px-2">Remarks:</span>
                                                 <div id="reviewer-<%- discard.reviewer_id %>-remark" class="fst-italic p-2">
-                                                    "<%- discard.remarks %>"
+                                                    "<%= discard.remarks %>"
                                                 </div>
                                             <% } %>
                                         </div>
