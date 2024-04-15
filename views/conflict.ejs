@@ -95,9 +95,7 @@
                                                 </div>
                                             </div>
                                             <% if (review.remarks) { %>
-                                                <label class="px-2" for="reviewer-<%- review.reviewer_id %>-remark">
-                                                    Remarks:
-                                                </label>
+                                                <span class="px-2">Remarks:</span>
                                                 <div id="reviewer-<%- review.reviewer_id %>-remark" class="fst-italic p-2">
                                                     "<%- review.remarks %>"
                                                 </div>
@@ -128,9 +126,7 @@
                                                 </div>
                                             </div>
                                             <% if (discard.remarks) { %>
-                                                <label class="px-2" for="reviewer-<%- discard.reviewer_id %>-remark">
-                                                    Remarks:
-                                                </label>
+                                                <span class="px-2">Remarks:</span>
                                                 <div id="reviewer-<%- discard.reviewer_id %>-remark" class="fst-italic p-2">
                                                     "<%- discard.remarks %>"
                                                 </div>
