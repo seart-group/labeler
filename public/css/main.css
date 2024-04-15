@@ -12,7 +12,7 @@
 }
 
 #label-offcanvas, #discard-offcanvas {
-    width: 768px!important;
+    width: var(--bs-breakpoint-md)!important;
 }
 
 .autocomplete-menu.dropdown-menu {
