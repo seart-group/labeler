@@ -44,7 +44,7 @@
     "body-parser": "^1.20.1",
     "compression": "^1.7.4",
     "dotenv": "^16.4.5",
-    "ejs": "^3.1.8",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-actuator": "^1.8.4",
     "express-file-routing": "^3.0.3",
