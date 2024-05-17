@@ -1,4 +1,4 @@
-FROM node:20.12.2-alpine AS build
+FROM node:22.2.0-alpine AS build
 
 WORKDIR /build
 
@@ -19,7 +19,7 @@ RUN apk update --quiet && \
     npm run --silent minify && \
     rm -rf node_modules
 
-FROM node:20.12.2-alpine
+FROM node:22.2.0-alpine
 LABEL maintainer="Ozren Dabić (dabico@usi.ch)"
 
 ENV TZ=UTC \
