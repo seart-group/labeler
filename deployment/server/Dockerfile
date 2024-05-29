@@ -13,8 +13,8 @@ COPY index.js          \
 
 RUN apk update --quiet && \
     apk add --quiet --no-cache \
-        gettext=~0.22.3 \
-        moreutils=~0.68 && \
+        gettext=~0.22.5 \
+        moreutils=~0.69 && \
     npm ci --quiet && \
     npm run --silent minify && \
     rm -rf node_modules
@@ -31,7 +31,7 @@ COPY --from=build build .
 
 RUN apk update --quiet && \
     apk add --quiet --no-cache \
-        curl=~8.5.0 \
+        curl=~8.7.1 \
         jq=~1.7.1 && \
     npm ci --quiet
 
