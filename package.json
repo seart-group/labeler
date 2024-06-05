@@ -55,7 +55,7 @@
     "morgan": "^1.10.0",
     "pg": "^8.11.5",
     "pg-error-enum": "^0.7.1",
-    "pg-query-stream": "^4.5.5",
+    "pg-query-stream": "^4.6.0",
     "postgres-array": "^3.0.2",
     "rotating-file-stream": "^3.2.1",
     "socket.io": "^4.7.5",
