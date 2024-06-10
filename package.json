@@ -59,7 +59,7 @@
     "postgres-array": "^3.0.2",
     "rotating-file-stream": "^3.2.1",
     "socket.io": "^4.7.5",
-    "uglify-js": "^3.17.4",
+    "uglify-js": "^3.18.0",
     "useragent": "^2.3.0"
   }
 }
