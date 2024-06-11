@@ -57,7 +57,7 @@
     "pg-error-enum": "^0.7.1",
     "pg-query-stream": "^4.6.0",
     "postgres-array": "^3.0.2",
-    "rotating-file-stream": "^3.2.2",
+    "rotating-file-stream": "^3.2.3",
     "socket.io": "^4.7.5",
     "uglify-js": "^3.18.0",
     "useragent": "^2.3.0"
