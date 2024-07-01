@@ -31,7 +31,7 @@ COPY --from=build build .
 
 RUN apk update --quiet && \
     apk add --quiet --no-cache \
-        curl=~8.7.1 \
+        curl=~8.8.0 \
         jq=~1.7.1 && \
     npm ci --quiet
 
