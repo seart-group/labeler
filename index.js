@@ -1,6 +1,6 @@
-import ip from "ip";
 import morgan from "morgan";
 import compression from "compression";
+import * as ip from "neoip";
 import * as fs from "node:fs";
 import * as path from "path";
 import express from "express";
