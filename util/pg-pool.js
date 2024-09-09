@@ -1,6 +1,7 @@
-import { config } from "dotenv";
+import {config} from "dotenv";
 import * as pg from "pg";
-const { Pool } = pg.default;
+
+const {Pool} = pg.default;
 
 config();
 
