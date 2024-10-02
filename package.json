@@ -54,7 +54,7 @@
     "morgan": "^1.10.0",
     "neoip": "^3.0.1",
     "pg": "^8.13.0",
-    "pg-error-enum": "^0.7.2",
+    "pg-error-enum": "^0.7.3",
     "pg-query-stream": "^4.7.0",
     "postgres-array": "^3.0.2",
     "rotating-file-stream": "^3.2.5",
