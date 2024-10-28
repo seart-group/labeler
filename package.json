@@ -58,7 +58,7 @@
     "pg-query-stream": "^4.7.1",
     "postgres-array": "^3.0.2",
     "rotating-file-stream": "^3.2.5",
-    "socket.io": "^4.8.0",
+    "socket.io": "^4.8.1",
     "uglify-js": "^3.19.3",
     "useragent": "^2.3.0"
   }
