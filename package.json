@@ -45,7 +45,7 @@
     "compression": "^1.7.5",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "express-actuator": "^1.8.4",
     "express-file-routing": "^3.0.3",
     "express-minify-html-2": "^2.0.0",
