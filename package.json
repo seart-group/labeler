@@ -55,7 +55,7 @@
     "neoip": "^3.0.1",
     "pg": "^8.15.5",
     "pg-error-enum": "^1.0.2",
-    "pg-query-stream": "^4.9.1",
+    "pg-query-stream": "^4.9.5",
     "postgres-array": "^3.0.4",
     "rotating-file-stream": "^3.2.6",
     "socket.io": "^4.8.1",
