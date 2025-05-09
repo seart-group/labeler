@@ -1,4 +1,4 @@
-FROM postgres:17.4-alpine
+FROM postgres:17.5-alpine
 LABEL maintainer="Ozren Dabić (dabico@usi.ch)"
 
 ENV TZ=UTC \
