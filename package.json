@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/seart-group/labeler#readme",
   "devDependencies": {
-    "@eslint/js": "^9.36.0",
+    "@eslint/js": "^9.38.0",
     "clean-css-cli": "^5.6.3",
     "eslint": "^9.38.0",
     "globals": "^16.4.0",
